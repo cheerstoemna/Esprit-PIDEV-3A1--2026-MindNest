@@ -415,14 +415,22 @@ public class ContentService {
         try {
             Connection c = conn();
 
-            // 1) Find top (category, type) pairs for this user
+            /*
+             * FIX #1: Preferences should not be dominated by repeated logs.
+             * Use the best (max) weight per content_id for this user, then sum by (category,type).
+             * This makes recommendations actually shift when you upvote different kinds of content.
+             */
             String prefSql = """
             SELECT COALESCE(NULLIF(TRIM(c.category),''), 'General') AS category,
                    COALESCE(NULLIF(TRIM(c.type),''), 'Article')     AS type,
-                   SUM(e.weight) AS score
-            FROM user_content_events e
-            JOIN content c ON c.id = e.content_id
-            WHERE e.user_id = ?
+                   SUM(x.best_weight) AS score
+            FROM (
+                SELECT content_id, MAX(weight) AS best_weight
+                FROM user_content_events
+                WHERE user_id = ?
+                GROUP BY content_id
+            ) x
+            JOIN content c ON c.id = x.content_id
             GROUP BY COALESCE(NULLIF(TRIM(c.category),''), 'General'),
                      COALESCE(NULLIF(TRIM(c.type),''), 'Article')
             ORDER BY score DESC
@@ -444,10 +452,9 @@ public class ContentService {
 
             // If no history -> fallback
             if (cats.isEmpty()) {
-                return getTopThisWeek(limit);
+                return dedupeById(getTopThisWeek(limit));
             }
 
-            // 2) Recommend matching (category, type) pairs (preferred)
             // Build OR conditions: (category=? AND LOWER(type)=LOWER(?)) OR ...
             StringBuilder wherePairs = new StringBuilder();
             for (int i = 0; i < cats.size(); i++) {
@@ -455,8 +462,12 @@ public class ContentService {
                 wherePairs.append("(COALESCE(NULLIF(TRIM(category),''),'General') = ? AND LOWER(type) = LOWER(?))");
             }
 
+            /*
+             * FIX #2: DISTINCT to protect against any future join changes.
+             * FIX #3: Exclude already-interacted content (same as your old logic).
+             */
             String sql = """
-            SELECT id,title,description,type,source_url,image_url,category,created_at,
+            SELECT DISTINCT id,title,description,type,source_url,image_url,category,created_at,
                    COALESCE(upvotes,0) AS upvotes,
                    COALESCE(downvotes,0) AS downvotes
             FROM content
@@ -488,22 +499,22 @@ public class ContentService {
                 }
             }
 
-            // 3) If still not enough results (small DB), fill with category-only
+            // ✅ Bulletproof: remove duplicates by id in Java too
+            list = dedupeById(list);
+
+            // If still not enough results, fill with category-only (also deduped)
             if (list.size() < limit) {
                 int remaining = limit - list.size();
 
-                // Build IN for categories
                 String placeholders = String.join(",", cats.stream().map(x -> "?").toList());
 
                 String fillSql = """
-                SELECT id,title,description,type,source_url,image_url,category,created_at,
+                SELECT DISTINCT id,title,description,type,source_url,image_url,category,created_at,
                        COALESCE(upvotes,0) AS upvotes,
                        COALESCE(downvotes,0) AS downvotes
                 FROM content
                 WHERE COALESCE(NULLIF(TRIM(category),''),'General') IN (%s)
-                  AND id NOT IN (
-                    SELECT content_id FROM user_content_events WHERE user_id = ?
-                  )
+                  AND id NOT IN (SELECT content_id FROM user_content_events WHERE user_id = ?)
                   AND id NOT IN (%s)
                 ORDER BY (COALESCE(upvotes,0) - COALESCE(downvotes,0)) DESC,
                          created_at DESC
@@ -516,7 +527,6 @@ public class ContentService {
                     for (String cat : cats) ps.setString(idx++, cat);
                     ps.setInt(idx++, userId);
 
-                    // exclude already selected ids
                     for (Content x : list) ps.setInt(idx++, x.getId());
 
                     ps.setInt(idx, remaining);
@@ -525,18 +535,28 @@ public class ContentService {
                         while (rs.next()) list.add(map(rs));
                     }
                 }
+
+                list = dedupeById(list);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return list;
+        return list.stream().limit(limit).collect(java.util.stream.Collectors.toList());
     }
 
     // helper for dynamic "NOT IN (?, ?, ?)" placeholders
     private String alreadyInListPlaceholders(int n) {
         if (n <= 0) return "0"; // NOT IN (0) does nothing for positive ids
         return String.join(",", java.util.Collections.nCopies(n, "?"));
+    }
+    private List<Content> dedupeById(List<Content> input) {
+        if (input == null || input.isEmpty()) return new ArrayList<>();
+        java.util.Map<Integer, Content> unique = new java.util.LinkedHashMap<>();
+        for (Content c : input) {
+            if (c != null) unique.put(c.getId(), c);
+        }
+        return new ArrayList<>(unique.values());
     }
 }

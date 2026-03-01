@@ -25,9 +25,8 @@
                     <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
 
                     <ImageView fx:id="heroImage"
-                               fitHeight="260" fitWidth="960"
-                               preserveRatio="true"
-                               styleClass="hero-image" />
+                               fitHeight="260"
+                               preserveRatio="true" />
 
                     <Button fx:id="openLinkBtn"
                             onAction="#openSourceLink"
@@ -51,7 +50,16 @@
 
                     <Separator />
 
-                    <Label styleClass="section-title" text="Comments" />
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label styleClass="section-title" text="Comments" />
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Label styleClass="muted" text="Sentiment:" />
+                        <ComboBox fx:id="sentimentFilterCombo" prefWidth="160"/>
+
+                        <Label styleClass="muted" text="Sort:" />
+                        <ComboBox fx:id="sortCombo" prefWidth="180"/>
+                    </HBox>
 
                     <HBox spacing="10">
                         <TextArea fx:id="commentInput"
@@ -65,7 +73,6 @@
                                 text="Add" />
                     </HBox>
 
-                    <!-- ✅ Cards feed -->
                     <ScrollPane fitToWidth="true" prefHeight="420" styleClass="comments-scroll">
                         <content>
                             <VBox fx:id="commentsBox" spacing="10" />
