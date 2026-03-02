@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.FeedbackController"
+      styleClass="card">
+
+    <Label text="Leave Feedback" styleClass="card-title"/>
+
+    <Label text="Rating (1-5)" />
+    <Slider fx:id="ratingSlider"
+            min="1"
+            max="5"
+            majorTickUnit="1"
+            showTickLabels="true"
+            showTickMarks="true"
+            snapToTicks="true"/>
+
+    <Label text="Comment"/>
+    <TextArea fx:id="commentArea"
+              prefRowCount="4"/>
+
+    <HBox spacing="10">
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Submit"
+                onAction="#handleSubmit"
+                styleClass="primary-btn"/>
+    </HBox>
+
+</VBox>

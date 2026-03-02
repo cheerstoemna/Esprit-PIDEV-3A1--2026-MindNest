@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="700" prefWidth="1200" styleClass="app-root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
+
+
+    <center>
+        <BorderPane styleClass="admin-center">
+            <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
+
+            <top>
+                <VBox spacing="10">
+                    <Label styleClass="page-title" text="Manage Content" />
+                    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="filter-bar">
+                        <TextField fx:id="adminSearch" promptText="Search title / description / category..." HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="filterType" prefWidth="160" />
+                        <ComboBox fx:id="filterCategory" prefWidth="170" />
+                        <Button onAction="#resetFilters" styleClass="pill-btn" text="Reset" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button onAction="#addContentDialog" styleClass="primary-pill" text="+ Add" />
+                        <Button onAction="#editContentDialog" styleClass="pill-btn" text="Edit" />
+                        <Button onAction="#deleteContent" styleClass="danger-pill" text="Delete" />
+                    </HBox>
+                </VBox>
+            </top>
+
+            <center>
+                <TableView fx:id="contentTable" onMouseClicked="#onRowSelect" styleClass="admin-table">
+                    <columns>
+                        <TableColumn fx:id="colId" prefWidth="70" text="ID" />
+                        <TableColumn fx:id="colTitle" prefWidth="380" text="Title" />
+                        <TableColumn fx:id="colType" prefWidth="140" text="Type" />
+                        <TableColumn fx:id="colCategory" prefWidth="160" text="Category" />
+                        <TableColumn fx:id="colDate" prefWidth="160" text="Created" />
+                    </columns>
+                </TableView>
+            </center>
+
+            <bottom>
+                <HBox alignment="CENTER_LEFT">
+                    <Label fx:id="statusLabel" styleClass="muted" text="" />
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </center>
+
+    <right>
+        <VBox prefWidth="420" spacing="10" styleClass="preview-pane">
+            <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
+            <Label styleClass="section-title" text="Preview" />
+            <ImageView fx:id="previewImage" fitHeight="210" fitWidth="380" preserveRatio="true" styleClass="card-thumb" />
+            <Label fx:id="previewTitle" styleClass="detail-title" text="Select a post…" />
+            <Label fx:id="previewMeta" styleClass="muted" text="" />
+            <Label fx:id="previewDesc" styleClass="detail-desc" text="" wrapText="true" />
+
+            <Button onAction="#openSelectedLink" styleClass="primary-pill" text="Open Source Link" />
+
+            <Separator />
+
+            <Label styleClass="section-title" text="Comments" />
+            <ListView fx:id="commentsList" prefHeight="360" />
+            <Label fx:id="commentsHint" styleClass="muted" text="Select a post to view comments." />
+        </VBox>
+    </right>
+</BorderPane>

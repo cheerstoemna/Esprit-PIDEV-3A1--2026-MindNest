@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="700" prefWidth="1200" styleClass="app-root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PostDetailController">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar">
+            <padding><Insets bottom="12" left="18" right="18" top="12" /></padding>
+            <Button fx:id="backBtn" onAction="#goBack" styleClass="pill-btn" text="← Back" />
+            <Region HBox.hgrow="ALWAYS" />
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="flat-scroll" vbarPolicy="ALWAYS">
+            <content>
+                <VBox spacing="14">
+                <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
+                    <ImageView fx:id="heroImage" fitHeight="260" fitWidth="960" preserveRatio="true" styleClass="hero-image" />
+                  <Button fx:id="openLinkBtn" onAction="#openSourceLink" styleClass="primary-pill" text="Open Source" />
+
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label fx:id="titleLabel" styleClass="detail-title" text="Title" />
+                            <Label fx:id="metaLabel" styleClass="muted" text="meta" />
+                        </VBox>
+
+                        <VBox alignment="TOP_CENTER" spacing="6">
+                            <Button fx:id="upBtn" onAction="#upvotePost" styleClass="vote-btn" text="▲" />
+                            <Label fx:id="scoreLabel" styleClass="vote-score" text="0" />
+                            <Button fx:id="downBtn" onAction="#downvotePost" styleClass="vote-btn" text="▼" />
+                        </VBox>
+                    </HBox>
+
+                    <Label fx:id="descLabel" styleClass="detail-desc" text="" wrapText="true" />
+
+                    <Separator />
+
+                    <Label styleClass="section-title" text="Comments" />
+
+                    <HBox spacing="10">
+                        <TextArea fx:id="commentInput" prefRowCount="3" promptText="Write a comment..." wrapText="true" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="addCommentBtn" onAction="#addComment" styleClass="primary-pill" text="Add" />
+                    </HBox>
+
+                    <ListView fx:id="commentsList" prefHeight="420" />
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

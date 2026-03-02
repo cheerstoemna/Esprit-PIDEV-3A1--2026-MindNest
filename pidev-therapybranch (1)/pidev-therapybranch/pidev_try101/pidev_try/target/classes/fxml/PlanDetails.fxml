@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.PlanDetailsController"
+            prefWidth="780.0" prefHeight="530.0">
+
+    <children>
+
+        <ScrollPane layoutX="0" layoutY="0"
+                    prefWidth="780" prefHeight="530"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER">
+
+            <content>
+                <VBox spacing="12" style="-fx-padding:20;">
+
+                    <!-- Top row -->
+                    <HBox spacing="10">
+                        <Button text="← Back" onAction="#goBack"/>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Button fx:id="followBtn" text="Follow"
+                                visible="false" managed="false"/>
+
+                        <Button fx:id="editBtn" text="Edit" onAction="#startEdit"/>
+                        <Button fx:id="deleteBtn" text="Delete" onAction="#deletePlan"/>
+
+                        <Button fx:id="saveBtn" text="Save"
+                                visible="false" managed="false"
+                                onAction="#saveEdit"/>
+
+                        <Button fx:id="cancelBtn" text="Cancel"
+                                visible="false" managed="false"
+                                onAction="#cancelEdit"/>
+                    </HBox>
+
+                    <!-- Header image -->
+                    <ImageView fx:id="planHeaderImage"
+                               fitWidth="740"
+                               fitHeight="220"
+                               preserveRatio="false"
+                               smooth="true" />
+
+                    <!-- Title -->
+                    <TextField fx:id="titleField"
+                               editable="false"
+                               style="-fx-font-size:22px; -fx-font-weight:bold; -fx-background-color: transparent; -fx-border-color: transparent;"/>
+
+                    <!-- Description -->
+                    <Label text="Description" style="-fx-font-weight:bold;"/>
+                    <TextArea fx:id="descriptionArea"
+                              editable="false"
+                              wrapText="true"
+                              prefHeight="140"/>
+
+                    <!-- Goals (bigger) -->
+                    <Label text="Goals" style="-fx-font-weight:bold;"/>
+                    <TextArea fx:id="goalsArea"
+                              editable="false"
+                              wrapText="true"
+                              prefHeight="220"/>
+
+                    <!-- Exercises -->
+                    <HBox>
+                        <Label text="Exercises" style="-fx-font-weight:bold;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="addExerciseBtn"
+                                text="+ Add Exercise"
+                                visible="false" managed="false"/>
+                    </HBox>
+
+                    <FlowPane fx:id="exercisesCardsContainer"
+                              hgap="15" vgap="15"
+                              prefWrapLength="740"/>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+
+    </children>
+</AnchorPane>
