@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="700" prefWidth="1200" styleClass="app-root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ContentController">
+
+    <top>
+        <HBox alignment="CENTER" spacing="16">
+            <padding><Insets bottom="14" left="18" right="18" top="14" /></padding>
+
+            <Button fx:id="homeBtn" onAction="#handleHome" styleClass="nav-btn" text="Home" />
+            <Button fx:id="articlesBtn" onAction="#handleArticles" styleClass="nav-btn" text="Articles" />
+            <Button fx:id="videosBtn" onAction="#handleVideos" styleClass="nav-btn" text="Videos" />
+            <Button fx:id="podcastsBtn" onAction="#handlePodcasts" styleClass="nav-btn" text="Podcasts" />
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane fx:id="centerStack" styleClass="center-stack">
+            <!-- HOME -->
+            <VBox fx:id="homePane" managed="true" spacing="18" visible="true">
+                <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
+
+                <VBox spacing="10">
+                    <Label styleClass="section-title" text="Top Blogs &amp; Resources" />
+	                    <!-- Horizontal carousel: keep a stable height; do NOT force content to viewport width -->
+	                    <ScrollPane fitToHeight="true" fitToWidth="false" hbarPolicy="ALWAYS" minHeight="270" prefViewportHeight="270" styleClass="flat-scroll" vbarPolicy="NEVER">
+                        <content>
+                            <HBox fx:id="topBlogsRow" spacing="12">
+                                <padding><Insets bottom="8" left="8" right="8" top="8" /></padding>
+                            </HBox>
+                        </content>
+                    </ScrollPane>
+                </VBox>
+
+	                <VBox spacing="10" VBox.vgrow="ALWAYS">
+	                    <Label styleClass="section-title" text="Latest Content" />
+	                    <!-- Latest list must be scrollable; otherwise it overflows and you can't reach older items -->
+	                    <ScrollPane fitToWidth="true" styleClass="flat-scroll" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+	                        <content>
+	                            <VBox fx:id="recommendedList" spacing="10">
+	                                <padding><Insets bottom="6" left="6" right="6" top="6" /></padding>
+	                            </VBox>
+	                        </content>
+	                    </ScrollPane>
+	                </VBox>
+            </VBox>
+
+            <!-- FORUM -->
+            <VBox fx:id="forumPane" managed="true" spacing="12" visible="false">
+                <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
+
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <TextField fx:id="searchField" promptText="Search title / description / category..." HBox.hgrow="ALWAYS" />
+                    <ComboBox fx:id="typeFilter" prefWidth="160" />
+                    <ComboBox fx:id="categoryFilter" prefWidth="170" />
+                    <ComboBox fx:id="sortFilter" prefWidth="170" />
+                </HBox>
+
+                <ScrollPane fitToWidth="true" styleClass="flat-scroll" vbarPolicy="ALWAYS">
+                    <content>
+                        <VBox fx:id="forumList" spacing="10">
+                            <padding><Insets bottom="6" left="6" right="6" top="6" /></padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

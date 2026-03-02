@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefWidth="820" prefHeight="580"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.LoginController"
+            style="-fx-background-color: #f5f5f0;">
+    <children>
+
+        <!-- Decorative green circle top-right -->
+        <Region layoutX="620" layoutY="-60"
+                prefWidth="260" prefHeight="260"
+                style="-fx-background-color: #2ecc71;
+                       -fx-background-radius: 130;
+                       -fx-opacity: 0.15;"/>
+
+        <!-- Decorative purple circle bottom-left -->
+        <Region layoutX="-60" layoutY="400"
+                prefWidth="220" prefHeight="220"
+                style="-fx-background-color: #5b4b8a;
+                       -fx-background-radius: 110;
+                       -fx-opacity: 0.12;"/>
+
+        <!-- Center card -->
+        <VBox alignment="CENTER" spacing="16"
+              prefWidth="380"
+              layoutX="220" layoutY="80"
+              style="-fx-background-color: white;
+                     -fx-background-radius: 20;
+                     -fx-padding: 40 35 35 35;
+                     -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.10),20,0,0,4);">
+
+            <!-- Logo area -->
+            <VBox alignment="CENTER" spacing="4">
+                <Label text="🌿"
+                       style="-fx-font-size: 36px;"/>
+                <Label text="MindNest"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold;
+                              -fx-text-fill: #2c3e50; -fx-font-family: 'Segoe UI';"/>
+                <Label text="A safe space for your thoughts"
+                       style="-fx-font-size: 11px; -fx-text-fill: #95a5a6;"/>
+            </VBox>
+
+            <Label text="Log in to your account"
+                   style="-fx-font-size: 17px; -fx-font-weight: bold;
+                          -fx-text-fill: #2c3e50; -fx-padding: 8 0 0 0;"/>
+
+            <TextField fx:id="emailField"
+                       promptText="Email *"
+                       prefHeight="42" prefWidth="310"
+                       style="-fx-background-radius: 10;
+                              -fx-border-color: #e0e0e0;
+                              -fx-border-radius: 10;
+                              -fx-font-size: 13px;
+                              -fx-padding: 0 12;"/>
+
+            <PasswordField fx:id="passwordField"
+                           promptText="Password *"
+                           prefHeight="42" prefWidth="310"
+                           style="-fx-background-radius: 10;
+                                  -fx-border-color: #e0e0e0;
+                                  -fx-border-radius: 10;
+                                  -fx-font-size: 13px;
+                                  -fx-padding: 0 12;"/>
+
+            <HBox alignment="CENTER_RIGHT" prefWidth="310">
+                <Hyperlink text="Forgot password?"
+                           style="-fx-font-size: 12px; -fx-text-fill: #5b4b8a;"/>
+            </HBox>
+
+            <Button text="Continue"
+                    onAction="#handleLogin"
+                    prefHeight="44" prefWidth="310"
+                    style="-fx-background-color: #5b4b8a;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 25;
+                           -fx-cursor: hand;"/>
+
+            <HBox alignment="CENTER" spacing="5">
+                <Label text="Don't have an account?"
+                       style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+                <Hyperlink text="Sign up"
+                           onAction="#goSignup"
+                           style="-fx-font-size: 12px; -fx-text-fill: #2ecc71;
+                                  -fx-font-weight: bold;"/>
+            </HBox>
+
+        </VBox>
+    </children>
+</AnchorPane>

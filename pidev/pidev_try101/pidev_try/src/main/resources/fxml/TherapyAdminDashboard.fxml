@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.AdminTherapyController"
+      spacing="20"
+      styleClass="root">
+
+    <!-- Header with Stats -->
+    <HBox spacing="16" styleClass="stats-container">
+        <VBox spacing="6" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <Label text="Total Sessions" styleClass="stat-label"/>
+            <Label fx:id="lblTotalSessions" text="0" styleClass="stat-value"/>
+        </VBox>
+
+        <VBox spacing="6" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <Label text="Completed" styleClass="stat-label"/>
+            <Label fx:id="lblCompleted" text="0" styleClass="stat-value-success"/>
+        </VBox>
+
+        <VBox spacing="6" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <Label text="Scheduled" styleClass="stat-label"/>
+            <Label fx:id="lblScheduled" text="0" styleClass="stat-value-info"/>
+        </VBox>
+
+        <VBox spacing="6" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <Label text="Avg Rating" styleClass="stat-label"/>
+            <Label fx:id="lblAvgRating" text="0.0" styleClass="stat-value-warning"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+
+        <!-- LEFT: Sessions Table -->
+        <VBox spacing="12" styleClass="card" HBox.hgrow="ALWAYS">
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Sessions Management" styleClass="card-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnRefresh" text=" Refresh" styleClass="ghost-btn"/>
+                <Button fx:id="btnDelete" text=" Delete" styleClass="danger-btn"/>
+            </HBox>
+
+            <TableView fx:id="sessionTable" VBox.vgrow="ALWAYS" styleClass="modern-table">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colPsy" text="Therapist" prefWidth="100"/>
+                    <TableColumn fx:id="colUser" text="Patient" prefWidth="80"/>
+                    <TableColumn fx:id="colDate" text="Date &amp; Time" prefWidth="180"/>
+                    <TableColumn fx:id="colDuration" text="Duration" prefWidth="80"/>
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
+                </columns>
+            </TableView>
+
+            <Separator/>
+
+            <!-- Quick Edit Section -->
+            <Label text="⚡ Quick Edit" styleClass="section-title"/>
+
+            <HBox spacing="14">
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text=" Date" styleClass="label-bold"/>
+                    <DatePicker fx:id="rescheduleDate" maxWidth="Infinity"/>
+                </VBox>
+
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="Time" styleClass="label-bold"/>
+                    <TextField fx:id="rescheduleTime" promptText="15:30" maxWidth="Infinity"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="14">
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text=" Duration" styleClass="label-bold"/>
+                    <ComboBox fx:id="durationCombo" maxWidth="Infinity"/>
+                </VBox>
+
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text=" Status" styleClass="label-bold"/>
+                    <ComboBox fx:id="statusCombo" maxWidth="Infinity"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Button fx:id="btnApply" text="Apply Changes" styleClass="primary-btn"/>
+                <Label text="💡 Select a session to edit" styleClass="hint"/>
+            </HBox>
+        </VBox>
+
+        <!-- RIGHT: Feedback Management -->
+        <VBox spacing="12" styleClass="card" prefWidth="420">
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Feedback Management" styleClass="card-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnDeleteFeedback" text=" Delete" styleClass="danger-btn"/>
+            </HBox>
+
+            <TableView fx:id="feedbackTable" VBox.vgrow="ALWAYS" styleClass="modern-table">
+                <columns>
+                    <TableColumn fx:id="fId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="fSessionId" text="Session" prefWidth="70"/>
+                    <TableColumn fx:id="fRating" text="⭐ Rating" prefWidth="80"/>
+                    <TableColumn fx:id="fComment" text="Comment" prefWidth="180"/>
+                </columns>
+            </TableView>
+
+            <Label styleClass="hint" text="💡 Select inappropriate feedback and delete it" />
+        </VBox>
+
+    </HBox>
+
+</VBox>

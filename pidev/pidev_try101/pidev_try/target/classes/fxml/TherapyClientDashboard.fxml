@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.ClientTherapyController"
+      stylesheets="@../css/client-professional-theme.css"
+      spacing="20"
+      styleClass="root">
+
+    <HBox spacing="20">
+
+        <!-- LEFT: Booking Form -->
+        <VBox spacing="14" styleClass="card-elevated" prefWidth="380">
+            <Label text="Book a Session" styleClass="card-title"/>
+
+            <VBox spacing="8">
+                <Label text="Select Therapist" styleClass="label-bold"/>
+                <ListView fx:id="therapistList" prefHeight="100" styleClass="therapist-list"/>
+            </VBox>
+
+            <HBox spacing="12">
+                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Date" styleClass="label-bold"/>
+                    <DatePicker fx:id="datePicker" maxWidth="Infinity"/>
+                </VBox>
+
+                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Time" styleClass="label-bold"/>
+                    <ComboBox fx:id="timeCombo" maxWidth="Infinity"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="8">
+                <Label text="Duration" styleClass="label-bold"/>
+                <ComboBox fx:id="durationCombo" maxWidth="Infinity"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <Label text="Notes (optional)" styleClass="label-bold"/>
+                <TextArea fx:id="notesArea" prefRowCount="3" wrapText="true"
+                          promptText="Any special requests or concerns..."/>
+            </VBox>
+
+            <HBox spacing="12">
+                <Button fx:id="btnBook" text="Book Session" styleClass="primary-btn" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnBook1" text="Update" styleClass="secondary-btn" HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <Button fx:id="btnRefresh" text="Refresh Sessions" styleClass="ghost-btn" maxWidth="Infinity"/>
+        </VBox>
+
+        <!-- RIGHT: Sessions Grid -->
+        <VBox spacing="14" styleClass="card" HBox.hgrow="ALWAYS">
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="My Sessions" styleClass="card-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblSessionCount" text="0 sessions" styleClass="hint"/>
+            </HBox>
+
+            <!-- Filter Tabs -->
+            <HBox spacing="8">
+                <Button fx:id="btnFilterAll" text="All" styleClass="filter-btn-active"/>
+                <Button fx:id="btnFilterScheduled" text="Scheduled" styleClass="filter-btn"/>
+                <Button fx:id="btnFilterCompleted" text="Completed" styleClass="filter-btn"/>
+                <Button fx:id="btnFilterCancelled" text="Cancelled" styleClass="filter-btn"/>
+            </HBox>
+
+            <!-- Scrollable Grid of Session Cards -->
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="session-scroll">
+                <VBox fx:id="sessionsContainer" spacing="14" styleClass="sessions-grid"/>
+            </ScrollPane>
+
+            <Label styleClass="hint" text="Click a session card to view details and take actions" />
+        </VBox>
+    </HBox>
+
+</VBox>

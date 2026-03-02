@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AddPlanController"
+            prefWidth="780.0" prefHeight="530.0">
+
+    <children>
+
+        <!-- Back -->
+        <Button text="← Back"
+                layoutX="20" layoutY="20"
+                onAction="#goBack"/>
+
+        <Label text="Create New Coaching Plan"
+               layoutX="220" layoutY="20"
+               style="-fx-font-size:20px; -fx-font-weight:bold;" />
+
+        <!-- Image preview -->
+        <ImageView fx:id="previewImage"
+                   layoutX="20" layoutY="70"
+                   fitWidth="180" fitHeight="140"
+                   preserveRatio="true"
+                   style="-fx-border-color:#E0E0E0; -fx-border-radius:10; -fx-background-radius:10;"/>
+
+        <!-- Upload button -->
+        <Button text="Upload image"
+                layoutX="20" layoutY="220"
+                prefWidth="180"
+                onAction="#handleUploadImage"/>
+
+        <Label fx:id="imageNameLabel"
+               text="No image selected"
+               layoutX="20" layoutY="255"
+               prefWidth="180"
+               wrapText="true"
+               style="-fx-text-fill:#666;" />
+
+        <!-- Title -->
+        <Label text="Title:" layoutX="230" layoutY="80"/>
+        <TextField fx:id="titleField"
+                   layoutX="230" layoutY="100"
+                   prefWidth="520"/>
+
+        <!-- Description -->
+        <Label text="Description:" layoutX="230" layoutY="150"/>
+        <TextArea fx:id="descriptionArea"
+                  layoutX="230" layoutY="170"
+                  prefWidth="520" prefHeight="110"
+                  wrapText="true"/>
+
+        <!-- Goals -->
+        <Label text="Goals:" layoutX="230" layoutY="295"/>
+        <TextArea fx:id="goalsArea"
+                  layoutX="230" layoutY="315"
+                  prefWidth="520" prefHeight="120"
+                  wrapText="true"/>
+
+        <!-- Buttons -->
+        <Button text="Cancel"
+                layoutX="480" layoutY="455"
+                prefWidth="120"
+                onAction="#cancel"/>
+
+        <Button text="Create Plan"
+                layoutX="630" layoutY="455"
+                prefWidth="120"
+                style="-fx-background-color:#1CB5A3; -fx-text-fill:white; -fx-font-weight:bold;"
+                onAction="#handleCreatePlan"/>
+
+    </children>
+</AnchorPane>

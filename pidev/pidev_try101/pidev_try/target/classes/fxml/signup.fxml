@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<AnchorPane prefWidth="820" prefHeight="680"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.SignupController"
+            style="-fx-background-color: #f5f5f0;">
+    <children>
+
+        <!-- Decorative green circle top-right -->
+        <Region layoutX="620" layoutY="-60"
+                prefWidth="260" prefHeight="260"
+                style="-fx-background-color: #2ecc71;
+                       -fx-background-radius: 130;
+                       -fx-opacity: 0.15;"/>
+
+        <!-- Decorative purple circle bottom-left -->
+        <Region layoutX="-60" layoutY="480"
+                prefWidth="220" prefHeight="220"
+                style="-fx-background-color: #5b4b8a;
+                       -fx-background-radius: 110;
+                       -fx-opacity: 0.12;"/>
+
+        <!-- Center card with ScrollPane for long content -->
+        <VBox alignment="CENTER" spacing="14"
+              prefWidth="400"
+              layoutX="210" layoutY="40"
+              style="-fx-background-color: white;
+                     -fx-background-radius: 20;
+                     -fx-padding: 35 35 30 35;
+                     -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.10),20,0,0,4);">
+
+            <!-- Logo area -->
+            <VBox alignment="CENTER" spacing="4">
+                <Label text="🌿"
+                       style="-fx-font-size: 32px;"/>
+                <Label text="MindNest"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold;
+                              -fx-text-fill: #2c3e50; -fx-font-family: 'Segoe UI';"/>
+                <Label text="A safe space for your thoughts"
+                       style="-fx-font-size: 11px; -fx-text-fill: #95a5a6;"/>
+            </VBox>
+
+            <Label text="Create your account"
+                   style="-fx-font-size: 17px; -fx-font-weight: bold;
+                          -fx-text-fill: #2c3e50; -fx-padding: 6 0 0 0;"/>
+
+            <!-- Full Name -->
+            <TextField fx:id="nameField"
+                       promptText="Full Name *"
+                       prefHeight="40" prefWidth="330"
+                       style="-fx-background-radius: 10;
+                              -fx-border-color: #e0e0e0;
+                              -fx-border-radius: 10;
+                              -fx-font-size: 13px;
+                              -fx-padding: 0 12;"/>
+
+            <!-- Email -->
+            <TextField fx:id="emailField"
+                       promptText="Email *"
+                       prefHeight="40" prefWidth="330"
+                       style="-fx-background-radius: 10;
+                              -fx-border-color: #e0e0e0;
+                              -fx-border-radius: 10;
+                              -fx-font-size: 13px;
+                              -fx-padding: 0 12;"/>
+
+            <!-- Password -->
+            <PasswordField fx:id="passwordField"
+                           promptText="Password *"
+                           prefHeight="40" prefWidth="330"
+                           style="-fx-background-radius: 10;
+                                  -fx-border-color: #e0e0e0;
+                                  -fx-border-radius: 10;
+                                  -fx-font-size: 13px;
+                                  -fx-padding: 0 12;"/>
+
+            <!-- Confirm Password -->
+            <PasswordField fx:id="confirmField"
+                           promptText="Confirm Password *"
+                           prefHeight="40" prefWidth="330"
+                           style="-fx-background-radius: 10;
+                                  -fx-border-color: #e0e0e0;
+                                  -fx-border-radius: 10;
+                                  -fx-font-size: 13px;
+                                  -fx-padding: 0 12;"/>
+
+            <!-- Age & Gender row -->
+            <HBox spacing="12" alignment="CENTER" prefWidth="330">
+                <!-- Age -->
+                <TextField fx:id="ageField"
+                           promptText="Age *"
+                           prefHeight="40" prefWidth="155"
+                           style="-fx-background-radius: 10;
+                                  -fx-border-color: #e0e0e0;
+                                  -fx-border-radius: 10;
+                                  -fx-font-size: 13px;
+                                  -fx-padding: 0 12;"/>
+
+                <!-- Gender -->
+                <ComboBox fx:id="genderBox"
+                          promptText="Gender *"
+                          prefHeight="40" prefWidth="163"
+                          style="-fx-background-radius: 10;
+                                 -fx-border-color: #e0e0e0;
+                                 -fx-border-radius: 10;
+                                 -fx-font-size: 13px;">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Male"/>
+                            <String fx:value="Female"/>
+                            <String fx:value="Other"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+            <!-- Role -->
+            <ComboBox fx:id="roleBox"
+                      promptText="I am a... *"
+                      prefHeight="40" prefWidth="330"
+                      style="-fx-background-radius: 10;
+                             -fx-border-color: #e0e0e0;
+                             -fx-border-radius: 10;
+                             -fx-font-size: 13px;">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="PATIENT"/>
+                        <String fx:value="THERAPIST"/>
+                        <String fx:value="ADMIN"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <!-- Create Account Button -->
+            <Button text="Create Account"
+                    onAction="#handleSignup"
+                    prefHeight="44" prefWidth="330"
+                    style="-fx-background-color: #2ecc71;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 25;
+                           -fx-cursor: hand;"/>
+
+            <!-- Login link -->
+            <HBox alignment="CENTER" spacing="5">
+                <Label text="Already have an account?"
+                       style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+                <Hyperlink text="Log in"
+                           onAction="#goLogin"
+                           style="-fx-font-size: 12px; -fx-text-fill: #5b4b8a;
+                                  -fx-font-weight: bold;"/>
+            </HBox>
+
+        </VBox>
+    </children>
+</AnchorPane>

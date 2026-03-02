@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ScrollPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.DashboardController"
+            prefHeight="800.0"
+            prefWidth="1200.0"
+            styleClass="page">
+
+    <children>
+
+
+
+        <!-- MAIN CONTENT AREA -->
+        <AnchorPane fx:id="contentArea"
+
+                    styleClass="content-area">
+
+            <children>
+
+                <!-- Vertical scroll for the whole dashboard content -->
+                <ScrollPane layoutX="0.0"
+                            layoutY="0.0"
+                            prefWidth="780.0"
+                            prefHeight="530.0"
+                            fitToWidth="true"
+                            hbarPolicy="NEVER"
+                            vbarPolicy="AS_NEEDED"
+                            styleClass="main-scroll">
+
+                    <content>
+                        <AnchorPane prefWidth="780.0"
+                                    prefHeight="680.0"
+                                    styleClass="content-root">
+
+                            <children>
+
+                                <!-- Add Plan Button -->
+                                <Button text="+ Add Plan"
+                                        onAction="#openAddPlan"
+                                        layoutX="280.0"
+                                        layoutY="20.0"
+                                        prefWidth="200.0"
+                                        prefHeight="40.0"
+                                        styleClass="btn-primary" />
+
+                                <!-- My Plans Title -->
+                                <Label text="My Coaching Plans"
+                                       layoutX="40.0"
+                                       layoutY="90.0"
+                                       styleClass="section-title" />
+
+                                <!-- My Plans: horizontal scroll -->
+                                <ScrollPane layoutX="40.0"
+                                            layoutY="130.0"
+                                            prefWidth="700.0"
+                                            prefHeight="210.0"
+                                            fitToHeight="true"
+                                            fitToWidth="false"
+                                            hbarPolicy="AS_NEEDED"
+                                            vbarPolicy="NEVER"
+                                            pannable="true"
+                                            styleClass="h-scroll">
+                                    <content>
+                                        <HBox fx:id="myPlansContainer"
+                                              spacing="15"
+                                              styleClass="cards-row" />
+                                    </content>
+                                </ScrollPane>
+
+                                <!-- Other Plans Title -->
+                                <Label text="Explore Other Plans"
+                                       layoutX="40.0"
+                                       layoutY="365.0"
+                                       styleClass="section-title" />
+
+                                <!-- Other Plans: horizontal scroll -->
+                                <ScrollPane layoutX="40.0"
+                                            layoutY="405.0"
+                                            prefWidth="700.0"
+                                            prefHeight="210.0"
+                                            fitToHeight="true"
+                                            fitToWidth="false"
+                                            hbarPolicy="AS_NEEDED"
+                                            vbarPolicy="NEVER"
+                                            pannable="true"
+                                            styleClass="h-scroll">
+                                    <content>
+                                        <HBox fx:id="otherPlansContainer"
+                                              spacing="15"
+                                              styleClass="cards-row" />
+                                    </content>
+                                </ScrollPane>
+
+                            </children>
+                        </AnchorPane>
+                    </content>
+
+                </ScrollPane>
+
+            </children>
+
+        </AnchorPane>
+
+    </children>
+
+</AnchorPane>

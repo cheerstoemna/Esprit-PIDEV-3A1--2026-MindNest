@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.ExerciseDetailsController"
+            prefWidth="780.0"
+            prefHeight="530.0">
+
+    <children>
+
+        <Button text="← Back"
+                layoutX="30.0"
+                layoutY="20.0"
+                prefWidth="90.0"
+                onAction="#goBack"/>
+
+        <ScrollPane layoutX="0.0"
+                    layoutY="60.0"
+                    prefWidth="780.0"
+                    prefHeight="470.0"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    style="-fx-background-color:transparent; -fx-background-insets:0;">
+
+            <content>
+                <VBox spacing="14" style="-fx-padding: 25;">
+
+                    <ImageView fx:id="exerciseImageView"
+                               fitWidth="720"
+                               fitHeight="240"
+                               preserveRatio="true"
+                               smooth="true"/>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label fx:id="titleLabel"
+                               style="-fx-font-size:22px; -fx-font-weight:bold;"/>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Button fx:id="editBtn" text="Edit" onAction="#onEdit"/>
+                        <Button fx:id="deleteBtn" text="Delete" onAction="#onDelete"/>
+                    </HBox>
+
+                    <HBox spacing="15">
+                        <Label fx:id="durationLabel" style="-fx-font-size:13px;"/>
+                        <Label fx:id="difficultyLabel" style="-fx-font-size:13px;"/>
+                    </HBox>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="My Status:" style="-fx-font-size:13px;"/>
+                        <ComboBox fx:id="statusCombo" prefWidth="200"/>
+                    </HBox>
+
+                    <Separator/>
+
+                    <Label text="Description" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+                    <Label fx:id="descriptionLabel" wrapText="true"/>
+
+                    <Separator/>
+
+                    <Label text="Video" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+                    <Label fx:id="videoLabel" wrapText="true"/>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+
+    </children>
+</AnchorPane>
