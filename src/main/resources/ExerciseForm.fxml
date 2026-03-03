@@ -40,15 +40,15 @@
                 <Label text="Image" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
 
                 <VBox spacing="6" GridPane.rowIndex="4" GridPane.columnIndex="1">
-                    <Button text="Upload image" onAction="#onUploadImage"/>
+                    <Button text="Upload image" styleClass="btn-secondary" onAction="#onUploadImage"/>
                     <Label fx:id="imageStatusLabel" text="No image selected" style="-fx-text-fill: #666;"/>
                 </VBox>
 
             </GridPane>
 
             <HBox spacing="10">
-                <Button text="Save" onAction="#onSave" />
-                <Button text="Cancel" onAction="#onCancel" />
+                <Button text="Save" styleClass="btn-primary" onAction="#onSave" />
+                <Button text="Cancel" styleClass="btn-secondary" onAction="#onCancel" />
             </HBox>
 
         </VBox>

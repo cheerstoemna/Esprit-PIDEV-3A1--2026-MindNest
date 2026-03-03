@@ -12,7 +12,6 @@ import javafx.scene.layout.*;
 import models.Exercise;
 import services.ExerciseProgressService;
 import services.ExerciseService;
-import services.PlanEnrollmentService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ public class ExerciseController {
 
     private final ExerciseService exerciseService = new ExerciseService();
     private final ExerciseProgressService progressService = new ExerciseProgressService();
-    private final PlanEnrollmentService enrollmentService = new PlanEnrollmentService();
 
     private int planId;
     private int userId;
@@ -31,7 +29,7 @@ public class ExerciseController {
     private Pane exercisesContainer;
 
     private Button addExerciseBtn; // owner-only
-    private Button followBtn;      // non-owner (can be null)
+    // Follow removed completely
 
     private AnchorPane contentArea;
 
@@ -45,14 +43,13 @@ public class ExerciseController {
     public void init(int planId, int userId, boolean isOwner,
                      Pane exercisesContainer,
                      Button addExerciseBtn,
-                     Button followBtn) {
+                     Button followBtnIgnored) {
 
         this.planId = planId;
         this.userId = userId;
         this.isOwner = isOwner;
         this.exercisesContainer = exercisesContainer;
         this.addExerciseBtn = addExerciseBtn;
-        this.followBtn = followBtn;
 
         wireButtons();
         refresh();
@@ -64,29 +61,6 @@ public class ExerciseController {
             addExerciseBtn.setManaged(isOwner);
             addExerciseBtn.setOnAction(e -> handleAddExercise());
         }
-
-        if (followBtn != null) {
-            boolean showFollow = !isOwner;
-            followBtn.setVisible(showFollow);
-            followBtn.setManaged(showFollow);
-            followBtn.setOnAction(e -> toggleFollow());
-            updateFollowButtonText();
-        }
-    }
-
-    private void updateFollowButtonText() {
-        if (followBtn == null || isOwner) return;
-        boolean enrolled = enrollmentService.isEnrolled(planId, userId);
-        followBtn.setText(enrolled ? "Unfollow" : "Follow");
-    }
-
-    private void toggleFollow() {
-        boolean enrolled = enrollmentService.isEnrolled(planId, userId);
-        if (enrolled) enrollmentService.unenroll(planId, userId);
-        else enrollmentService.enroll(planId, userId);
-
-        updateFollowButtonText();
-        refresh();
     }
 
     public void refresh() {
@@ -109,27 +83,22 @@ public class ExerciseController {
             Label empty = new Label("No exercises yet.");
             empty.setStyle("-fx-text-fill: #666;");
             exercisesContainer.getChildren().add(empty);
-            updateFollowButtonText();
             return;
         }
 
-        boolean enrolled = isOwner || enrollmentService.isEnrolled(planId, userId);
-
         for (Exercise ex : list) {
-            exercisesContainer.getChildren().add(createExerciseRow(ex, enrolled));
+            exercisesContainer.getChildren().add(createExerciseRow(ex));
         }
-
-        updateFollowButtonText();
     }
 
-    private Region createExerciseRow(Exercise ex, boolean enrolled) {
+    private Region createExerciseRow(Exercise ex) {
         if (exercisesContainer instanceof FlowPane) {
             return createExerciseCard(ex);
         }
-        return createExerciseListRow(ex, enrolled);
+        return createExerciseListRow(ex);
     }
 
-    // thumbnail loads from absolute path stored in DB (exercise.image), like Plans
+    // ===== CARD VIEW =====
     private Region createExerciseCard(Exercise ex) {
         VBox card = new VBox(10);
         card.setPrefWidth(220);
@@ -167,7 +136,8 @@ public class ExerciseController {
         return card;
     }
 
-    private Region createExerciseListRow(Exercise ex, boolean enrolled) {
+    // ===== LIST ROW VIEW (if you use VBox container) =====
+    private Region createExerciseListRow(Exercise ex) {
         HBox row = new HBox(10);
         row.setAlignment(Pos.TOP_LEFT);
         row.setPadding(new Insets(10));
@@ -196,21 +166,19 @@ public class ExerciseController {
         meta.setStyle("-fx-text-fill: #444;");
 
         ComboBox<String> status = new ComboBox<>();
-        status.getItems().addAll("Not Started", "In Progress", "Done", "Skipped");
+        status.getItems().addAll("Not Started", "In Progress", "Completed", "Skipped");
         status.setPrefWidth(140);
 
         String current = progressService.getStatus(ex.getExerciseId(), userId);
+        if ("Done".equalsIgnoreCase(current)) current = "Completed";
         status.setValue(current);
-        status.setDisable(!enrolled);
+
+        // ✅ Enrollment removed: status always enabled
+        status.setDisable(false);
 
         status.setOnAction(e -> {
             String val = status.getValue();
             if (val == null) return;
-
-            if (!isOwner && !enrollmentService.isEnrolled(planId, userId)) {
-                enrollmentService.enroll(planId, userId);
-                updateFollowButtonText();
-            }
             progressService.upsertStatus(ex.getExerciseId(), userId, val);
         });
 
@@ -251,7 +219,7 @@ public class ExerciseController {
         try {
             planDetailsSnapshot = new ArrayList<>(contentArea.getChildren());
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ExerciseDetails.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ExerciseDetails.fxml"));
             Parent view = loader.load();
 
             ExerciseDetailsController controller = loader.getController();
@@ -261,7 +229,6 @@ public class ExerciseController {
             controller.setUserId(userId);
             controller.setOwner(isOwner);
             controller.setPlanId(planId);
-
             controller.setExercise(ex);
 
             contentArea.getChildren().setAll(view);
@@ -277,7 +244,7 @@ public class ExerciseController {
         try {
             planDetailsSnapshot = new ArrayList<>(contentArea.getChildren());
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ExerciseForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ExerciseForm.fxml"));
             Parent view = loader.load();
 
             ExerciseFormController controller = loader.getController();
@@ -305,7 +272,7 @@ public class ExerciseController {
             List<Node> snapshot = new ArrayList<>(contentArea.getChildren());
             planDetailsSnapshot = new ArrayList<>(snapshot);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ExerciseForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ExerciseForm.fxml"));
             Parent view = loader.load();
 
             ExerciseFormController controller = loader.getController();
@@ -337,14 +304,11 @@ public class ExerciseController {
         if (result != ButtonType.OK) return;
 
         exerciseService.deleteExercise(ex.getExerciseId());
-
-        // IMPORTANT: refresh PlanDetails UI immediately (cards removed / image updates)
         refresh();
     }
 
     // ===== IMAGES =====
 
-    // absolute path in DB, like plans. Fallback to /images/plan.png
     private Image loadExerciseImage(String imagePath) {
         if (imagePath != null && !imagePath.isBlank()) {
             try {
@@ -355,7 +319,7 @@ public class ExerciseController {
             } catch (Exception ignored) {}
         }
 
-        try (var is = getClass().getResourceAsStream("/images/plan.png")) {
+        try (var is = getClass().getResourceAsStream("/fxml/images/plan.png")) {
             if (is != null) return new Image(is);
         } catch (Exception ignored) {}
 

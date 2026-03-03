@@ -2,131 +2,162 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.ScrollPane?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.DashboardController"
-            prefHeight="600.0"
-            prefWidth="1000.0">
+            styleClass="page">
 
     <children>
 
-        <!-- TOP NAVBAR -->
-        <Pane layoutX="0.0"
-              layoutY="0.0"
-              prefWidth="1000.0"
-              prefHeight="70.0"
-              style="-fx-background-color: linear-gradient(to right, #1CB5A3, #70D36B);">
-
-            <children>
-                <Label text="MINDNEST"
-                       layoutX="30.0"
-                       layoutY="20.0"
-                       style="-fx-text-fill:white; -fx-font-size:20px; -fx-font-weight:bold;" />
-            </children>
-
-        </Pane>
-
-        <!-- SIDEBAR -->
-        <VBox layoutX="0.0"
-              layoutY="70.0"
-              prefWidth="220.0"
-              prefHeight="530.0"
-              spacing="15"
-              style="-fx-background-color:#F2F2F2; -fx-padding:20;">
-
-            <children>
-                <Button text="Self-Reflection &amp; Journaling" prefWidth="180"/>
-                <Button text="Psychologist &amp; Therapy" prefWidth="180"/>
-                <Button text="Personal Development Coaching"
-                        prefWidth="180"
-                        style="-fx-background-color:#DCE5DC;"/>
-                <Button text="Self-Help Content" prefWidth="180"/>
-            </children>
-
-        </VBox>
-
-        <!-- MAIN CONTENT AREA -->
         <AnchorPane fx:id="contentArea"
-                    layoutX="220.0"
-                    layoutY="70.0"
-                    prefWidth="780.0"
-                    prefHeight="530.0">
+                    styleClass="content-area"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0">
 
             <children>
 
-                <!-- Vertical scroll for the whole dashboard content -->
-                <ScrollPane layoutX="0.0"
-                            layoutY="0.0"
-                            prefWidth="780.0"
-                            prefHeight="530.0"
-                            fitToWidth="true"
+                <ScrollPane fitToWidth="true"
                             hbarPolicy="NEVER"
                             vbarPolicy="AS_NEEDED"
-                            style="-fx-background-color:transparent; -fx-background-insets:0;">
+                            styleClass="main-scroll"
+                            AnchorPane.topAnchor="0.0"
+                            AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0">
 
                     <content>
-                        <AnchorPane prefWidth="780.0"
-                                    prefHeight="680.0"
-                                    style="-fx-background-color:transparent;">
+
+                        <AnchorPane styleClass="content-root"
+                                    minHeight="1250.0">
 
                             <children>
 
-                                <!-- Add Plan Button -->
-                                <Button text="+ Add Plan"
+                                <!-- Language row -->
+                                <HBox spacing="10" alignment="CENTER_RIGHT"
+                                      AnchorPane.topAnchor="20.0"
+                                      AnchorPane.rightAnchor="40.0">
+
+                                    <Label fx:id="languageLabel" text="Language:"/>
+                                    <ComboBox fx:id="langCombo" prefWidth="150"/>
+                                    <Button fx:id="applyLangBtn"
+                                            text="Apply"
+                                            onAction="#onApplyLanguage"
+                                            styleClass="btn-secondary"/>
+                                </HBox>
+
+                                <!-- Add Plan -->
+                                <Button fx:id="addPlanBtn"
+                                        text="+ Add Plan"
                                         onAction="#openAddPlan"
                                         layoutX="280.0"
                                         layoutY="20.0"
                                         prefWidth="200.0"
                                         prefHeight="40.0"
-                                        style="-fx-font-size:16px;" />
+                                        styleClass="btn-primary" />
 
-                                <!-- My Plans Title -->
-                                <Label text="My Coaching Plans"
+                                <!-- Quote header -->
+                                <Label fx:id="quoteTitleLabel"
+                                       text="One-line wisdom"
                                        layoutX="40.0"
-                                       layoutY="90.0"
-                                       style="-fx-font-size:18px; -fx-font-weight:bold;" />
+                                       layoutY="70.0"
+                                       styleClass="section-title" />
 
-                                <!-- My Plans: horizontal scroll so cards never overflow -->
-                                <ScrollPane layoutX="40.0"
-                                            layoutY="130.0"
-                                            prefWidth="700.0"
+                                <!-- Quote -->
+                                <Label fx:id="quoteLabel"
+                                       text="Loading quote..."
+                                       wrapText="true"
+                                       maxWidth="700.0"
+                                       layoutX="40.0"
+                                       layoutY="95.0"
+                                       styleClass="quote" />
+
+                                <!-- Favorites -->
+                                <Label fx:id="favoritesTitle"
+                                       text="Favorites"
+                                       layoutX="40.0"
+                                       layoutY="170.0"
+                                       styleClass="section-title" />
+
+                                <ScrollPane layoutY="210.0"
                                             prefHeight="210.0"
                                             fitToHeight="true"
                                             fitToWidth="false"
                                             hbarPolicy="AS_NEEDED"
                                             vbarPolicy="NEVER"
                                             pannable="true"
-                                            style="-fx-background-color:transparent; -fx-background-insets:0; -fx-padding:0;">
+                                            styleClass="h-scroll"
+                                            AnchorPane.leftAnchor="40.0"
+                                            AnchorPane.rightAnchor="40.0">
                                     <content>
-                                        <HBox fx:id="myPlansContainer"
+                                        <HBox fx:id="favoritesContainer"
                                               spacing="15"
-                                              style="-fx-padding:5;" />
+                                              styleClass="cards-row" />
                                     </content>
                                 </ScrollPane>
 
-                                <!-- Other Plans Title -->
-                                <Label text="Explore Other Plans"
+                                <!-- My Plans -->
+                                <Label fx:id="myPlansTitle"
+                                       text="My Coaching Plans"
                                        layoutX="40.0"
-                                       layoutY="365.0"
-                                       style="-fx-font-size:18px; -fx-font-weight:bold;" />
+                                       layoutY="445.0"
+                                       styleClass="section-title" />
 
-                                <!-- Other Plans: horizontal scroll so cards never overflow -->
-                                <ScrollPane layoutX="40.0"
-                                            layoutY="405.0"
-                                            prefWidth="700.0"
+                                <ScrollPane layoutY="485.0"
                                             prefHeight="210.0"
                                             fitToHeight="true"
                                             fitToWidth="false"
                                             hbarPolicy="AS_NEEDED"
                                             vbarPolicy="NEVER"
                                             pannable="true"
-                                            style="-fx-background-color:transparent; -fx-background-insets:0; -fx-padding:0;">
+                                            styleClass="h-scroll"
+                                            AnchorPane.leftAnchor="40.0"
+                                            AnchorPane.rightAnchor="40.0">
+                                    <content>
+                                        <HBox fx:id="myPlansContainer"
+                                              spacing="15"
+                                              styleClass="cards-row" />
+                                    </content>
+                                </ScrollPane>
+
+                                <!-- Advice (moved RIGHT BEFORE other plans) -->
+                                <Label fx:id="adviceTitleLabel"
+                                       text="Try this tip"
+                                       layoutX="40.0"
+                                       layoutY="720.0"
+                                       styleClass="section-title" />
+
+                                <Label fx:id="adviceLabel"
+                                       text="Loading advice..."
+                                       wrapText="true"
+                                       maxWidth="700.0"
+                                       layoutX="40.0"
+                                       layoutY="755.0"
+                                       styleClass="advice" />
+
+                                <!-- Other Plans -->
+                                <Label fx:id="otherPlansTitle"
+                                       text="Explore Other Plans"
+                                       layoutX="40.0"
+                                       layoutY="830.0"
+                                       styleClass="section-title" />
+
+                                <ScrollPane layoutY="870.0"
+                                            prefHeight="210.0"
+                                            fitToHeight="true"
+                                            fitToWidth="false"
+                                            hbarPolicy="AS_NEEDED"
+                                            vbarPolicy="NEVER"
+                                            pannable="true"
+                                            styleClass="h-scroll"
+                                            AnchorPane.leftAnchor="40.0"
+                                            AnchorPane.rightAnchor="40.0">
                                     <content>
                                         <HBox fx:id="otherPlansContainer"
                                               spacing="15"
-                                              style="-fx-padding:5;" />
+                                              styleClass="cards-row" />
                                     </content>
                                 </ScrollPane>
 

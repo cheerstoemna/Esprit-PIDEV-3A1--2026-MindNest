@@ -1,0 +1,84 @@
+.quote {
+    -fx-font-size: 13px;
+    -fx-text-fill: #1F2A1F;
+    -fx-background-color: #DFF5E1;   /* baby pastel green */
+    -fx-background-radius: 14;
+    -fx-padding: 12 14 12 14;
+    -fx-border-color: #BFE8C6;       /* soft green border */
+    -fx-border-radius: 14;
+}
+
+/* Make scroll panes not draw their own boxed background */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* If you have a specific style class on the plan details container, use it */
+.plan-details-root {
+    -fx-background-color: transparent;
+}
+
+.main-scroll {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+}
+
+.main-scroll > .viewport {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+/* optional: remove the little border/space around scrollbars */
+.main-scroll .scroll-bar:vertical {
+    -fx-padding: 0;
+}
+
+.advice {
+    -fx-background-color: #c8f3d6; /* different shade */
+    -fx-text-fill: #11402a;
+    -fx-padding: 14 18;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: rgba(0,0,0,0.08);
+}
+/* Apply to any Button that has styleClass="btn-primary" */
+.btn-primary {
+    -fx-background-color: linear-gradient(#19c37d, #0aa36c);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+
+    -fx-padding: 10 20;
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 18, 0.25, 0, 8);
+    -fx-cursor: hand;
+}
+
+/* Hover + pressed states */
+.btn-primary:hover {
+    -fx-background-color: linear-gradient(#22d58a, #0bb975);
+}
+
+.btn-primary:pressed {
+    -fx-background-color: linear-gradient(#0aa36c, #088a5c);
+    -fx-translate-y: 1;
+}
+
+/* Optional: secondary/neutral buttons (Back/Edit/Delete etc.) */
+.btn-secondary {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #111827;
+    -fx-font-weight: bold;
+
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: rgba(0,0,0,0.12);
+
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}

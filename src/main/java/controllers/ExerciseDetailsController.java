@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,7 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import models.Exercise;
 import services.ExerciseProgressService;
 import services.ExerciseService;
-import services.PlanEnrollmentService;
+import services.TranslateService;
+import utils.AppState;
 
 import java.io.File;
 import java.io.InputStream;
@@ -26,7 +28,11 @@ public class ExerciseDetailsController {
     @FXML private Label durationLabel;
     @FXML private Label difficultyLabel;
     @FXML private Label descriptionLabel;
-    @FXML private Label videoLabel;
+
+    // static UI nodes (ExerciseDetails.fxml must have these fx:id)
+    @FXML private Button backBtn;
+    @FXML private Label statusTitleLabel;
+    @FXML private Label descriptionTitleLabel;
 
     @FXML private ComboBox<String> statusCombo;
 
@@ -36,18 +42,23 @@ public class ExerciseDetailsController {
     private AnchorPane contentArea;
     private List<Node> previousContent;
 
-    // refresh callback (PlanDetails refreshExercises)
     private Runnable onPlanRefresh;
     public void setOnPlanRefresh(Runnable onPlanRefresh) { this.onPlanRefresh = onPlanRefresh; }
 
     private final ExerciseService exerciseService = new ExerciseService();
     private final ExerciseProgressService progressService = new ExerciseProgressService();
-    private final PlanEnrollmentService enrollmentService = new PlanEnrollmentService();
+    private final TranslateService translateService = new TranslateService();
 
     private Exercise exercise;
     private int userId;
     private boolean isOwner;
     private int planId;
+
+    private boolean initializingStatus = false;
+
+    // raw text cache for translation (dynamic content)
+    private String rawTitle = "";
+    private String rawDesc = "";
 
     public void setContext(AnchorPane contentArea) { this.contentArea = contentArea; }
     public void setPreviousContent(List<Node> previousContent) { this.previousContent = previousContent; }
@@ -66,43 +77,112 @@ public class ExerciseDetailsController {
         if (deleteBtn != null) { deleteBtn.setVisible(isOwner); deleteBtn.setManaged(isOwner); }
     }
 
+    private void applyStaticUiLanguage() {
+        String lang = AppState.getCoachingLang();
+        if (lang == null) lang = "en";
+
+        if ("fr".equals(lang)) {
+            if (backBtn != null) backBtn.setText("← Retour");
+            if (editBtn != null) editBtn.setText("Modifier");
+            if (deleteBtn != null) deleteBtn.setText("Supprimer");
+            if (statusTitleLabel != null) statusTitleLabel.setText("Mon statut :");
+            if (descriptionTitleLabel != null) descriptionTitleLabel.setText("Description");
+        } else {
+            if (backBtn != null) backBtn.setText("← Back");
+            if (editBtn != null) editBtn.setText("Edit");
+            if (deleteBtn != null) deleteBtn.setText("Delete");
+            if (statusTitleLabel != null) statusTitleLabel.setText("My Status:");
+            if (descriptionTitleLabel != null) descriptionTitleLabel.setText("Description");
+        }
+    }
+
+    private void applyExerciseTranslationAsync() {
+        String lang = AppState.getCoachingLang();
+        if (lang == null || "en".equals(lang)) {
+            titleLabel.setText(rawTitle);
+            descriptionLabel.setText(rawDesc);
+            return;
+        }
+
+        Thread t = new Thread(() -> {
+            try {
+                String tTitle = translateService.translate(rawTitle, lang);
+                String tDesc  = translateService.translate(rawDesc, lang);
+
+                Platform.runLater(() -> {
+                    titleLabel.setText(tTitle);
+                    descriptionLabel.setText(tDesc);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        t.setDaemon(true);
+        t.start();
+    }
+
     private void render() {
         if (exercise == null) return;
 
         updateOwnerUI();
+        applyStaticUiLanguage();
 
-        titleLabel.setText(n(exercise.getTitle()));
-        descriptionLabel.setText(n(exercise.getDescription()));
-        durationLabel.setText("Duration: " + exercise.getDuration() + " min");
-        difficultyLabel.setText("Difficulty: " + n(exercise.getDifficultyLevel()));
+        rawTitle = n(exercise.getTitle());
+        rawDesc  = n(exercise.getDescription());
 
-        videoLabel.setText("No video yet.");
+        titleLabel.setText(rawTitle);
+        descriptionLabel.setText(rawDesc);
 
-        statusCombo.getItems().setAll("Not Started", "In Progress", "Done", "Skipped");
+        boolean fr = "fr".equals(AppState.getCoachingLang());
+        durationLabel.setText((fr ? "Durée: " : "Duration: ") + exercise.getDuration() + " min");
+        difficultyLabel.setText((fr ? "Difficulté: " : "Difficulty: ") + n(exercise.getDifficultyLevel()));
 
-        String current = progressService.getStatus(exercise.getExerciseId(), userId);
-        statusCombo.setValue(current);
+        // status always editable for everyone
+        statusCombo.setDisable(false);
 
-        int effectivePlanId = (exercise.getPlanId() > 0) ? exercise.getPlanId() : planId;
-        boolean enrolled = isOwner || enrollmentService.isEnrolled(effectivePlanId, userId);
-        statusCombo.setDisable(!enrolled);
+        // ---- STATUS COMBO: display translated, store English ----
+        String NOT_STARTED_D = fr ? "Pas commencé" : "Not Started";
+        String IN_PROGRESS_D = fr ? "En cours" : "In Progress";
+        String COMPLETED_D   = fr ? "Terminé" : "Completed";
+        String SKIPPED_D     = fr ? "Ignoré" : "Skipped";
+
+        statusCombo.getItems().setAll(NOT_STARTED_D, IN_PROGRESS_D, COMPLETED_D, SKIPPED_D);
+
+        initializingStatus = true;
+        String currentStored = progressService.getStatus(exercise.getExerciseId(), userId);
+        if ("Done".equalsIgnoreCase(currentStored)) currentStored = "Completed";
+
+        String currentDisplay = switch (currentStored) {
+            case "In Progress" -> IN_PROGRESS_D;
+            case "Completed"   -> COMPLETED_D;
+            case "Skipped"     -> SKIPPED_D;
+            default            -> NOT_STARTED_D;
+        };
+
+        statusCombo.setValue(currentDisplay);
+        initializingStatus = false;
 
         statusCombo.setOnAction(e -> {
-            String val = statusCombo.getValue();
-            if (val == null) return;
+            if (initializingStatus) return;
 
-            int pid = (exercise.getPlanId() > 0) ? exercise.getPlanId() : planId;
+            String chosenDisplay = statusCombo.getValue();
+            if (chosenDisplay == null) return;
 
-            if (!isOwner && !enrollmentService.isEnrolled(pid, userId)) {
-                enrollmentService.enroll(pid, userId);
-                statusCombo.setDisable(false);
-            }
+            String chosenStored =
+                    chosenDisplay.equals(IN_PROGRESS_D) ? "In Progress" :
+                            chosenDisplay.equals(COMPLETED_D)   ? "Completed" :
+                                    chosenDisplay.equals(SKIPPED_D)     ? "Skipped" :
+                                            "Not Started";
 
-            progressService.upsertStatus(exercise.getExerciseId(), userId, val);
+            progressService.upsertStatus(exercise.getExerciseId(), userId, chosenStored);
+            triggerPlanRefresh();
         });
+        // ---- end status combo ----
 
         Image img = loadExerciseImage(exercise.getImage());
         if (img != null) exerciseImageView.setImage(img);
+
+        applyExerciseTranslationAsync();
     }
 
     private Image loadExerciseImage(String imagePath) {
@@ -115,7 +195,7 @@ public class ExerciseDetailsController {
             } catch (Exception ignored) {}
         }
 
-        try (InputStream is = getClass().getResourceAsStream("/images/plan.png")) {
+        try (InputStream is = getClass().getResourceAsStream("/fxml/images/plan.png")) {
             if (is != null) return new Image(is);
         } catch (Exception ignored) {}
 
@@ -133,9 +213,7 @@ public class ExerciseDetailsController {
 
         exerciseService.deleteExercise(exercise.getExerciseId());
 
-        // refresh PlanDetails (if still reachable through contentArea properties)
         triggerPlanRefresh();
-
         goBack();
     }
 
@@ -146,7 +224,7 @@ public class ExerciseDetailsController {
         try {
             List<Node> exerciseDetailsSnapshot = new ArrayList<>(contentArea.getChildren());
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ExerciseForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ExerciseForm.fxml"));
             Parent view = loader.load();
 
             ExerciseFormController controller = loader.getController();
@@ -183,7 +261,6 @@ public class ExerciseDetailsController {
         }
     }
 
-    // Prefer explicit callback; fallback to AnchorPane properties (set in PlanDetailsController.setContext)
     private void triggerPlanRefresh() {
         if (onPlanRefresh != null) {
             onPlanRefresh.run();

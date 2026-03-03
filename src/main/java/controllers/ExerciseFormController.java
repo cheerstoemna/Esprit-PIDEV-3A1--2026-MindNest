@@ -221,7 +221,7 @@ public class ExerciseFormController {
         if (contentArea == null || exercise == null) return;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ExerciseDetails.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ExerciseDetails.fxml"));
             Parent view = loader.load();
 
             ExerciseDetailsController controller = loader.getController();
