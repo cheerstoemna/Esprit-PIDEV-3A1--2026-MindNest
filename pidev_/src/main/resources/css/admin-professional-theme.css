@@ -1,0 +1,251 @@
+/* =========================================================
+   MindNest — Admin theme (matches Sessions/Therapy)
+   Targets: admin-center, filter-bar, admin-table, preview-pane
+   ========================================================= */
+
+/* ---- Base ---- */
+.app-root {
+    -fx-background-color: #f6fbf9;
+}
+
+/* ---- Cards ---- */
+.admin-center,
+.preview-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: #e6f0ed;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 20, 0.22, 0, 6);
+}
+
+/* ---- Titles ---- */
+.page-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #123a33;
+}
+
+.section-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #123a33;
+}
+
+.detail-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #123a33;
+}
+
+.detail-desc {
+    -fx-text-fill: #2c5b53;
+    -fx-opacity: 0.95;
+}
+
+.muted {
+    -fx-text-fill: #7b9a95;
+    -fx-font-weight: 700;
+    -fx-font-size: 12px;
+}
+
+/* ---- Filter bar ---- */
+.filter-bar {
+    -fx-background-color: #f1fbf6;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #d7ebe4;
+    -fx-border-width: 1;
+    -fx-padding: 10 12;
+}
+
+/* ---- Inputs ---- */
+.text-field, .combo-box, .text-area {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #c7dbd5;
+    -fx-border-width: 1;
+    -fx-padding: 10 14;
+    -fx-text-fill: #123a33;
+    -fx-prompt-text-fill: #8aa7a2;
+}
+
+.text-field:focused, .combo-box:focused, .text-area:focused {
+    -fx-border-color: #10b981;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.14), 12, 0.35, 0, 0);
+}
+
+/* ---- Buttons ---- */
+.button {
+    -fx-text-fill: #123a33;
+}
+.button .text {
+    -fx-fill: #123a33;
+}
+
+.pill-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #047857;
+    -fx-font-weight: 900;
+    -fx-padding: 9 14;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-border-color: #d1f4e0;
+    -fx-border-width: 1.2;
+    -fx-cursor: hand;
+}
+.pill-btn .text { -fx-fill: #047857; }
+
+.pill-btn:hover {
+    -fx-background-color: #eefaf4;
+    -fx-border-color: #a7e9c5;
+}
+
+.primary-pill {
+    -fx-background-color: linear-gradient(to bottom, #10b981, #059669);
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-padding: 10 16;
+    -fx-background-radius: 999;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.25), 14, 0.35, 0, 4);
+}
+.primary-pill .text { -fx-fill: white; }
+
+.primary-pill:hover {
+    -fx-background-color: linear-gradient(to bottom, #059669, #047857);
+}
+.primary-pill:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.danger-pill {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #991b1b;
+    -fx-font-weight: 900;
+    -fx-padding: 10 16;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-border-color: #fecaca;
+    -fx-border-width: 1.2;
+    -fx-cursor: hand;
+}
+.danger-pill .text { -fx-fill: #991b1b; }
+
+.danger-pill:hover {
+    -fx-background-color: #fecaca;
+}
+
+/* ---- TableView ---- */
+.admin-table {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 4;
+}
+
+/* Fix: ensure rows have enough height so text is not clipped */
+.table-view {
+    -fx-fixed-cell-size: 36px;       /* adjust 34–42 if you want */
+}
+
+/* header background */
+.table-view .column-header-background {
+    -fx-background-color: #f1fbf6;
+    -fx-background-radius: 12;
+    -fx-padding: 10 8;
+    -fx-border-color: #d7ebe4;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #123a33;
+    -fx-font-weight: 900;
+}
+
+/* Fix: pad cells (NOT rows) + stable alignment */
+.table-view .table-cell {
+    -fx-padding: 8 10;
+    -fx-alignment: CENTER_LEFT;
+    -fx-text-fill: #123a33;
+    -fx-font-size: 13px;
+}
+.table-view .table-cell .text {
+    -fx-fill: #123a33;
+}
+
+/* rows */
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #eef5f2;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 0;                 /* override old padding that caused clipping */
+    -fx-background-insets: 0;
+}
+
+.table-row-cell:filled:hover {
+    -fx-background-color: #eefaf4;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgba(16,185,129,0.18);
+}
+.table-row-cell:selected .table-cell,
+.table-row-cell:selected .table-cell .text {
+    -fx-text-fill: #123a33;
+    -fx-fill: #123a33;
+}
+
+/* ---- Scrollbars ---- */
+.scroll-bar { -fx-background-color: transparent; }
+.scroll-bar .track {
+    -fx-background-color: #eefaf4;
+    -fx-background-radius: 8;
+}
+.scroll-bar .thumb {
+    -fx-background-color: #c7dbd5;
+    -fx-background-radius: 8;
+}
+.scroll-bar .thumb:hover { -fx-background-color: #a8c3bd; }
+
+/* ---- Preview image ---- */
+.card-thumb {
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #e6f0ed;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 16, 0.20, 0, 5);
+}
+
+/* ---- Comments list ---- */
+.list-view {
+    -fx-background-color: #f6fbf9;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #e6f0ed;
+    -fx-border-width: 1;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2c5b53;
+    -fx-padding: 10 12;
+}
+.list-cell .text { -fx-fill: #2c5b53; }
+
+.list-cell:filled:hover {
+    -fx-background-color: #eefaf4;
+    -fx-background-radius: 12;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: rgba(16,185,129,0.16);
+    -fx-background-radius: 12;
+}

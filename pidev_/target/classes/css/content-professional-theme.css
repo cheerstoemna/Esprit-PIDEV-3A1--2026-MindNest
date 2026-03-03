@@ -1,0 +1,228 @@
+/* =========================================================
+   MindNest — Content module theme (match Sessions/Therapy)
+   Uses your existing styleClasses from ContentController
+   ========================================================= */
+
+.app-root, .root {
+    -fx-font-family: "Inter", "Segoe UI", "Arial";
+    -fx-font-size: 13px;
+    -fx-background-color: #f6fbf9;
+}
+
+/* ---------- Section titles ---------- */
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #123a33;
+}
+
+/* ---------- Top nav buttons (Home / Articles / Videos / Podcasts / Recommended) ---------- */
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #587b75;
+    -fx-font-weight: 800;
+    -fx-padding: 8 16;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #d4e6e1;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+
+.nav-btn:hover {
+    -fx-background-color: #eefaf4;
+    -fx-text-fill: #047857;
+    -fx-border-color: #b7d7cc;
+}
+
+/* Optional: if you want a selected tab look, add this styleClass in code */
+.nav-btn-active {
+    -fx-background-color: #10b981;
+    -fx-text-fill: white;
+    -fx-border-color: #10b981;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.25), 14, 0.35, 0, 4);
+}
+
+/* ---------- Filters / inputs ---------- */
+.text-field,
+.combo-box,
+.text-area {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #c7dbd5;
+    -fx-border-width: 1;
+    -fx-padding: 10 14;
+    -fx-text-fill: #123a33;
+    -fx-prompt-text-fill: #8aa7a2;
+}
+
+.text-field:focused,
+.combo-box:focused,
+.text-area:focused {
+    -fx-border-color: #10b981;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.14), 12, 0.35, 0, 0);
+}
+
+/* ---------- ScrollPane cleanup ---------- */
+.flat-scroll {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.flat-scroll .viewport { -fx-background-color: transparent; }
+
+/* Scrollbars — soft like Sessions */
+.scroll-bar { -fx-background-color: transparent; }
+.scroll-bar .track {
+    -fx-background-color: #eefaf4;
+    -fx-background-radius: 8;
+}
+.scroll-bar .thumb {
+    -fx-background-color: #c7dbd5;
+    -fx-background-radius: 8;
+}
+.scroll-bar .thumb:hover { -fx-background-color: #a8c3bd; }
+
+/* ---------- Top carousel cards ---------- */
+.top-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #e6f0ed;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 18, 0.22, 0, 6);
+    -fx-cursor: hand;
+}
+
+.top-card:hover {
+    -fx-border-color: #b7d7cc;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.12), 22, 0.25, 0, 7);
+}
+
+.card-thumb {
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-background-color: #f3fbf7;
+    -fx-border-color: #e6f0ed;
+    -fx-border-width: 1;
+}
+
+.type-badge {
+    -fx-background-color: rgba(255,255,255,0.92);
+    -fx-text-fill: #123a33;
+    -fx-padding: 6 10;
+    -fx-background-radius: 999;
+    -fx-font-weight: 900;
+    -fx-border-color: #e6f0ed;
+    -fx-border-radius: 999;
+    -fx-border-width: 1;
+}
+
+.category-pill {
+    -fx-background-color: rgba(16,185,129,0.14);
+    -fx-text-fill: #047857;
+    -fx-padding: 6 10;
+    -fx-background-radius: 999;
+    -fx-font-weight: 900;
+}
+
+.top-card-title {
+    -fx-font-size: 13.5px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #123a33;
+}
+
+/* ---------- Feed rows (Latest + Forum list) ---------- */
+.feed-row {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #e6f0ed;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 16, 0.22, 0, 6);
+    -fx-cursor: hand;
+}
+
+.feed-row:hover {
+    -fx-border-color: #b7d7cc;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.10), 18, 0.25, 0, 6);
+}
+
+.feed-thumb {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #e6f0ed;
+    -fx-border-width: 1;
+}
+
+.feed-title {
+    -fx-font-size: 13.5px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #123a33;
+}
+
+.feed-desc {
+    -fx-text-fill: #2c5b53;
+    -fx-opacity: 0.92;
+}
+
+.muted {
+    -fx-text-fill: #7b9a95;
+    -fx-font-weight: 700;
+    -fx-font-size: 12px;
+}
+
+/* ---------- Vote box ---------- */
+.vote-btn {
+    -fx-background-color: #f6fbf9;
+    -fx-text-fill: #2c5b53;
+    -fx-font-weight: 900;
+    -fx-padding: 7 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #d4e6e1;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+
+.vote-btn:hover {
+    -fx-background-color: #eefaf4;
+    -fx-text-fill: #047857;
+    -fx-border-color: #a7e9c5;
+}
+
+.vote-score {
+    -fx-font-weight: 900;
+    -fx-text-fill: #123a33;
+}
+
+/* ---------- Buttons in detail page (if you used .pill-btn / .primary-pill) ---------- */
+.pill-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #047857;
+    -fx-font-weight: 900;
+    -fx-padding: 9 14;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-border-color: #d1f4e0;
+    -fx-border-width: 1.2;
+    -fx-cursor: hand;
+}
+.pill-btn:hover {
+    -fx-background-color: #eefaf4;
+    -fx-border-color: #a7e9c5;
+}
+
+.primary-pill {
+    -fx-background-color: linear-gradient(to bottom, #10b981, #059669);
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-padding: 10 16;
+    -fx-background-radius: 999;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.25), 14, 0.35, 0, 4);
+}
+.primary-pill:hover {
+    -fx-background-color: linear-gradient(to bottom, #059669, #047857);
+}

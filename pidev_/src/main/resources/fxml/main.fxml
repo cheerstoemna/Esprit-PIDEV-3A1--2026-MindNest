@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="700" prefWidth="1000" spacing="10" style="-fx-background-color: #f4f6f8;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="controllers.MainController">
+
+    <!-- TOP BUTTONS -->
+    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 15; -fx-background-color: #2c3e50;">
+        <Button fx:id="quizBtn" blendMode="COLOR_DODGE" cache="true" styleClass="primary-button" text="Quizzes">
+            <font>
+                <Font size="18.0" />
+            </font></Button>
+        <Button fx:id="journalBtn" blendMode="COLOR_DODGE" style="-fx-graphic-text-gap: 12;" styleClass="primary-button" stylesheets="@../css/css.css" text="Journal">
+            <font>
+                <Font size="18.0" />
+            </font></Button>
+        <Region HBox.hgrow="ALWAYS" />
+    </HBox>
+
+    <!-- CONTENT AREA -->
+    <StackPane fx:id="contentPane" style="-fx-padding: 15; -fx-background-color: #ecf0f1;" VBox.vgrow="ALWAYS">
+        <!-- Loaded content will appear here -->
+    </StackPane>
+
+</VBox>

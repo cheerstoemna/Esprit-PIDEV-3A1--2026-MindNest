@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<!--
+    ReminderBanner.fxml — UPDATED to match enhanced ReminderBannerController
+    The controller now builds all content in Java code.
+    This file just provides the root VBox container.
+
+    Drop in: src/main/resources/fxml/ReminderBanner.fxml
+-->
+
+<VBox fx:id="reminderContainer"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.ReminderBannerController"
+      spacing="0"
+      visible="false"
+      managed="false"
+      maxWidth="Infinity">
+</VBox>

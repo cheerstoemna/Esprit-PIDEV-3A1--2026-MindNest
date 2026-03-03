@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.DashboardController"
+            styleClass="page">
+
+    <children>
+
+        <AnchorPane fx:id="contentArea"
+                    styleClass="content-area"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0">
+
+            <children>
+
+                <ScrollPane fitToWidth="true"
+                            hbarPolicy="NEVER"
+                            vbarPolicy="AS_NEEDED"
+                            styleClass="main-scroll"
+                            AnchorPane.topAnchor="0.0"
+                            AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0">
+
+                    <content>
+
+                        <AnchorPane styleClass="content-root"
+                                    minHeight="1250.0">
+
+                            <children>
+
+                                <!-- Language row -->
+                                <HBox spacing="10" alignment="CENTER_RIGHT"
+                                      AnchorPane.topAnchor="20.0"
+                                      AnchorPane.rightAnchor="40.0">
+
+                                    <Label fx:id="languageLabel" text="Language:"/>
+                                    <ComboBox fx:id="langCombo" prefWidth="150"/>
+                                    <Button fx:id="applyLangBtn"
+                                            text="Apply"
+                                            onAction="#onApplyLanguage"
+                                            styleClass="btn-secondary"/>
+                                </HBox>
+
+                                <!-- Add Plan -->
+                                <Button fx:id="addPlanBtn"
+                                        text="+ Add Plan"
+                                        onAction="#openAddPlan"
+                                        layoutX="280.0"
+                                        layoutY="20.0"
+                                        prefWidth="200.0"
+                                        prefHeight="40.0"
+                                        styleClass="btn-primary" />
+
+                                <!-- Quote header -->
+                                <Label fx:id="quoteTitleLabel"
+                                       text="One-line wisdom"
+                                       layoutX="40.0"
+                                       layoutY="70.0"
+                                       styleClass="section-title" />
+
+                                <!-- Quote -->
+                                <Label fx:id="quoteLabel"
+                                       text="Loading quote..."
+                                       wrapText="true"
+                                       maxWidth="700.0"
+                                       layoutX="40.0"
+                                       layoutY="95.0"
+                                       styleClass="quote" />
+
+                                <!-- Favorites -->
+                                <Label fx:id="favoritesTitle"
+                                       text="Favorites"
+                                       layoutX="40.0"
+                                       layoutY="170.0"
+                                       styleClass="section-title" />
+
+                                <ScrollPane layoutY="210.0"
+                                            prefHeight="210.0"
+                                            fitToHeight="true"
+                                            fitToWidth="false"
+                                            hbarPolicy="AS_NEEDED"
+                                            vbarPolicy="NEVER"
+                                            pannable="true"
+                                            styleClass="h-scroll"
+                                            AnchorPane.leftAnchor="40.0"
+                                            AnchorPane.rightAnchor="40.0">
+                                    <content>
+                                        <HBox fx:id="favoritesContainer"
+                                              spacing="15"
+                                              styleClass="cards-row" />
+                                    </content>
+                                </ScrollPane>
+
+                                <!-- My Plans -->
+                                <Label fx:id="myPlansTitle"
+                                       text="My Coaching Plans"
+                                       layoutX="40.0"
+                                       layoutY="445.0"
+                                       styleClass="section-title" />
+
+                                <ScrollPane layoutY="485.0"
+                                            prefHeight="210.0"
+                                            fitToHeight="true"
+                                            fitToWidth="false"
+                                            hbarPolicy="AS_NEEDED"
+                                            vbarPolicy="NEVER"
+                                            pannable="true"
+                                            styleClass="h-scroll"
+                                            AnchorPane.leftAnchor="40.0"
+                                            AnchorPane.rightAnchor="40.0">
+                                    <content>
+                                        <HBox fx:id="myPlansContainer"
+                                              spacing="15"
+                                              styleClass="cards-row" />
+                                    </content>
+                                </ScrollPane>
+
+                                <!-- Advice (moved RIGHT BEFORE other plans) -->
+                                <Label fx:id="adviceTitleLabel"
+                                       text="Try this tip"
+                                       layoutX="40.0"
+                                       layoutY="720.0"
+                                       styleClass="section-title" />
+
+                                <Label fx:id="adviceLabel"
+                                       text="Loading advice..."
+                                       wrapText="true"
+                                       maxWidth="700.0"
+                                       layoutX="40.0"
+                                       layoutY="755.0"
+                                       styleClass="advice" />
+
+                                <!-- Other Plans -->
+                                <Label fx:id="otherPlansTitle"
+                                       text="Explore Other Plans"
+                                       layoutX="40.0"
+                                       layoutY="830.0"
+                                       styleClass="section-title" />
+
+                                <ScrollPane layoutY="870.0"
+                                            prefHeight="210.0"
+                                            fitToHeight="true"
+                                            fitToWidth="false"
+                                            hbarPolicy="AS_NEEDED"
+                                            vbarPolicy="NEVER"
+                                            pannable="true"
+                                            styleClass="h-scroll"
+                                            AnchorPane.leftAnchor="40.0"
+                                            AnchorPane.rightAnchor="40.0">
+                                    <content>
+                                        <HBox fx:id="otherPlansContainer"
+                                              spacing="15"
+                                              styleClass="cards-row" />
+                                    </content>
+                                </ScrollPane>
+
+                            </children>
+                        </AnchorPane>
+                    </content>
+
+                </ScrollPane>
+
+            </children>
+
+        </AnchorPane>
+
+    </children>
+
+</AnchorPane>

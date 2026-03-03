@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.TherapyLayoutController"
+            stylesheets="@../css/therapy.css"
+            prefWidth="1200" prefHeight="720"
+            styleClass="app-root">
+
+    <!-- TOP BAR -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="app-topbar">
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="🧠" style="-fx-font-size: 24px;"/>
+                <Label text="MINDNEST" styleClass="app-topbar-title"/>
+            </HBox>
+
+            <TextField promptText="🔍 Search"
+                       prefWidth="400"
+                       styleClass="app-topbar-search"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox alignment="CENTER_RIGHT" spacing="15">
+                <Label fx:id="userLabel" text="User: Loading..." styleClass="topbar-user-label"/>
+
+                <StackPane styleClass="topbar-avatar">
+                    <Label text="👤" style="-fx-font-size: 20px;"/>
+                </StackPane>
+
+                <Button fx:id="btnDarkMode" text="🌙 Dark" onAction="#toggleTheme"
+                        styleClass="theme-toggle-btn"/>
+
+                <Button text="Logout" onAction="#handleLogout"
+                        styleClass="topbar-logout-btn"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox spacing="3" styleClass="app-sidebar">
+
+            <!-- PATIENT SECTION -->
+            <VBox fx:id="patientSection" spacing="3" style="-fx-padding: 10 0;">
+                <Label text="PATIENT" styleClass="sidebar-section-label"/>
+
+                <Button fx:id="btnClient"
+                        text="  📅  Sessions"
+                        onAction="#openClient"
+                        styleClass="sidebar-nav-btn"
+                        prefWidth="220"/>
+
+                <Button fx:id="btnJournal"
+                        text="  📖  Journal"
+                        onAction="#openJournal"
+                        styleClass="sidebar-nav-btn"
+                        prefWidth="220"/>
+
+                <Button fx:id="btnClientContent"
+                        text="  📚  Content"
+                        onAction="#openContent"
+                        styleClass="sidebar-nav-btn"
+                        prefWidth="220"/>
+
+                <Button fx:id="btnCoaching"
+                        text="  🎯  Coaching Plans"
+                        onAction="#openCoaching"
+                        styleClass="sidebar-nav-btn"
+                        prefWidth="220"/>
+
+                <Button fx:id="btnProfile"
+                        text="  👤  My Profile"
+                        onAction="#openProfile"
+                        styleClass="sidebar-nav-btn"
+                        prefWidth="220"/>
+            </VBox>
+
+            <Separator styleClass="sidebar-divider"/>
+
+            <!-- ADMIN SECTION -->
+            <VBox fx:id="adminSection" spacing="3" style="-fx-padding: 10 0;">
+                <Label text="ADMIN" styleClass="sidebar-section-label"/>
+
+                <!-- ✅ NEW — User Dashboard with charts -->
+                <Button fx:id="btnUserDashboard"
+                        text="  📊  User Dashboard"
+                        onAction="#openUserDashboard"
+                        styleClass="sidebar-nav-btn"
+                        prefWidth="220"/>
+
+                <Button fx:id="btnAdmin"
+                        text="  👥  Users"
+                        onAction="#openAdmin"
+                        styleClass="sidebar-nav-btn"
+                        prefWidth="220"/>
+
+                <Button fx:id="btnAdminContent"
+                        text="  ⚙️  Manage Content"
+                        onAction="#openAdminContent"
+                        styleClass="sidebar-nav-btn"
+                        prefWidth="220"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+        </VBox>
+    </left>
+
+    <!-- CENTER CONTENT AREA -->
+    <center>
+        <StackPane fx:id="contentHost" styleClass="app-content-host"/>
+    </center>
+
+</BorderPane>

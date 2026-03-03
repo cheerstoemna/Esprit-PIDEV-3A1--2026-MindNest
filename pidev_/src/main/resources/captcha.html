@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        * { margin: 0; padding: 0; }
+        body { background: white; }
+    </style>
+</head>
+<body>
+<div class="g-recaptcha"
+     data-sitekey="6Ld0TnosAAAAAB7JPGHtradjaID5Nhz6k1eVaKfO"
+     data-callback="onCaptchaSuccess"
+     data-expired-callback="onCaptchaExpired"
+     data-error-callback="onCaptchaError">
+</div>
+<script>
+    function onCaptchaSuccess(token) { window.alert('CAPTCHA_TOKEN:' + token); }
+    function onCaptchaExpired()      { window.alert('CAPTCHA_EXPIRED'); }
+    function onCaptchaError()        { window.alert('CAPTCHA_ERROR'); }
+    function resetCaptcha()          { grecaptcha.reset(); }
+</script>
+</body>
+</html>

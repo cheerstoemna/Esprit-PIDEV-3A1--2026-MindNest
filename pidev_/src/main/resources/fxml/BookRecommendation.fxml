@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.BookRecommendationController"
+      spacing="10" alignment="TOP_CENTER"
+      stylesheets="@css.css">
+
+    <Label text="Book Recommendations" styleClass="header-label"/>
+    <ListView fx:id="bookListView" VBox.vgrow="ALWAYS"/>
+    <Button text="Close" onAction="#closeWindow"/>
+
+</VBox>

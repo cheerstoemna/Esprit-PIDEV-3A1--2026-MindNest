@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<ScrollPane fitToWidth="true"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.UserDashboardController"
+            style="-fx-background-color: #f5f5f0; -fx-background: #f5f5f0;">
+
+    <VBox spacing="20" style="-fx-padding: 24; -fx-background-color: #f5f5f0;">
+
+        <!-- ── Header ─────────────────────────────────────────────── -->
+        <HBox alignment="CENTER_LEFT" spacing="16">
+            <VBox spacing="2">
+                <Label text="Admin Dashboard"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold;
+                              -fx-text-fill: #2c3e50; -fx-font-family: 'Segoe UI';"/>
+                <Label fx:id="subtitleLabel"
+                       text="Loading..."
+                       style="-fx-font-size: 12px; -fx-text-fill: #95a5a6;"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="exportBtn"
+                    text="⬇  Export CSV"
+                    onAction="#handleExportCSV"
+                    style="-fx-background-color: #2ecc71; -fx-text-fill: white;
+                           -fx-font-size: 13px; -fx-font-weight: bold;
+                           -fx-background-radius: 20; -fx-cursor: hand;
+                           -fx-padding: 8 20;"/>
+        </HBox>
+
+        <!-- ── Stat Cards ─────────────────────────────────────────── -->
+        <HBox spacing="16">
+            <VBox fx:id="cardTotal" alignment="CENTER" spacing="4" prefWidth="160" prefHeight="80"
+                  style="-fx-background-color: #5b4b8a; -fx-background-radius: 14;
+                         -fx-padding: 16;">
+                <Label fx:id="totalUsersLabel" text="0"
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Total Users"
+                       style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.8);"/>
+            </VBox>
+            <VBox fx:id="cardAdmins" alignment="CENTER" spacing="4" prefWidth="160" prefHeight="80"
+                  style="-fx-background-color: #e74c3c; -fx-background-radius: 14;
+                         -fx-padding: 16;">
+                <Label fx:id="totalAdminsLabel" text="0"
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Admins"
+                       style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.8);"/>
+            </VBox>
+            <VBox alignment="CENTER" spacing="4" prefWidth="160" prefHeight="80"
+                  style="-fx-background-color: #3498db; -fx-background-radius: 14;
+                         -fx-padding: 16;">
+                <Label fx:id="totalTherapistsLabel" text="0"
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Therapists"
+                       style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.8);"/>
+            </VBox>
+            <VBox alignment="CENTER" spacing="4" prefWidth="160" prefHeight="80"
+                  style="-fx-background-color: #2ecc71; -fx-background-radius: 14;
+                         -fx-padding: 16;">
+                <Label fx:id="totalPatientsLabel" text="0"
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Patients"
+                       style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.8);"/>
+            </VBox>
+        </HBox>
+
+        <!-- ── Charts Row 1: Role Bar + Gender Pie ────────────────── -->
+        <HBox spacing="16">
+            <!-- Users by Role -->
+            <VBox spacing="8" prefWidth="460"
+                  style="-fx-background-color: white; -fx-background-radius: 14;
+                         -fx-padding: 16; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.07),10,0,0,3);">
+                <Label text="Users by Role"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <BarChart fx:id="roleBarChart" prefHeight="220" animated="false">
+                    <xAxis><CategoryAxis label="Role"/></xAxis>
+                    <yAxis><NumberAxis label="Count"/></yAxis>
+                </BarChart>
+            </VBox>
+
+            <!-- Gender Distribution -->
+            <VBox spacing="8" prefWidth="420"
+                  style="-fx-background-color: white; -fx-background-radius: 14;
+                         -fx-padding: 16; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.07),10,0,0,3);">
+                <Label text="Gender Distribution"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <PieChart fx:id="genderPieChart" prefHeight="220" animated="false" labelsVisible="true"/>
+            </VBox>
+        </HBox>
+
+        <!-- ── Charts Row 2: Registrations + Age ─────────────────── -->
+        <HBox spacing="16">
+            <!-- Registrations over time -->
+            <VBox spacing="8" prefWidth="460"
+                  style="-fx-background-color: white; -fx-background-radius: 14;
+                         -fx-padding: 16; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.07),10,0,0,3);">
+                <Label text="Registrations Over Time"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <LineChart fx:id="registrationLineChart" prefHeight="220" animated="false">
+                    <xAxis><CategoryAxis label="Month"/></xAxis>
+                    <yAxis><NumberAxis label="New Users"/></yAxis>
+                </LineChart>
+            </VBox>
+
+            <!-- Age groups -->
+            <VBox spacing="8" prefWidth="420"
+                  style="-fx-background-color: white; -fx-background-radius: 14;
+                         -fx-padding: 16; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.07),10,0,0,3);">
+                <Label text="Users by Age Group"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <BarChart fx:id="ageBarChart" prefHeight="220" animated="false">
+                    <xAxis><CategoryAxis label="Age Group"/></xAxis>
+                    <yAxis><NumberAxis label="Count"/></yAxis>
+                </BarChart>
+            </VBox>
+        </HBox>
+
+        <!-- ── Users Table ────────────────────────────────────────── -->
+        <VBox spacing="10"
+              style="-fx-background-color: white; -fx-background-radius: 14;
+                     -fx-padding: 16; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.07),10,0,0,3);">
+
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="All Users"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Search -->
+                <TextField fx:id="searchField"
+                           promptText="🔍 Search by name or email..."
+                           prefWidth="220" prefHeight="34"
+                           style="-fx-background-radius: 20; -fx-border-color: #e0e0e0;
+                                  -fx-border-radius: 20; -fx-padding: 0 12; -fx-font-size: 12px;"/>
+
+                <!-- Filter by role -->
+                <ComboBox fx:id="roleFilter"
+                          promptText="All Roles"
+                          prefHeight="34" prefWidth="130"
+                          style="-fx-background-radius: 20; -fx-border-color: #e0e0e0;
+                                 -fx-border-radius: 20; -fx-font-size: 12px;"/>
+
+                <!-- Sort -->
+                <ComboBox fx:id="sortCombo"
+                          promptText="Sort by..."
+                          prefHeight="34" prefWidth="130"
+                          style="-fx-background-radius: 20; -fx-border-color: #e0e0e0;
+                                 -fx-border-radius: 20; -fx-font-size: 12px;"/>
+            </HBox>
+
+            <TableView fx:id="usersTable" prefHeight="300">
+                <columns>
+                    <TableColumn fx:id="colId"     text="ID"     prefWidth="50"/>
+                    <TableColumn fx:id="colName"   text="Name"   prefWidth="180"/>
+                    <TableColumn fx:id="colEmail"  text="Email"  prefWidth="220"/>
+                    <TableColumn fx:id="colRole"   text="Role"   prefWidth="100"/>
+                    <TableColumn fx:id="colGender" text="Gender" prefWidth="90"/>
+                    <TableColumn fx:id="colAge"    text="Age"    prefWidth="60"/>
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="80"/>
+                </columns>
+                <placeholder>
+                    <Label text="No users found." style="-fx-text-fill: #95a5a6;"/>
+                </placeholder>
+            </TableView>
+
+            <Label fx:id="tableFooterLabel" text=""
+                   style="-fx-font-size: 11px; -fx-text-fill: #95a5a6;"/>
+        </VBox>
+
+    </VBox>
+</ScrollPane>

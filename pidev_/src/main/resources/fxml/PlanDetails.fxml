@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.PlanDetailsController"
+            prefWidth="780.0" prefHeight="530.0">
+
+    <children>
+
+        <!-- Main scroll content -->
+        <ScrollPane layoutX="0" layoutY="0"
+                    prefWidth="1080" prefHeight="530"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0">
+
+            <content>
+                <VBox spacing="12" style="-fx-padding:20;">
+
+                    <!-- Top row -->
+                    <HBox spacing="10">
+                        <Button fx:id="backBtn"
+                                text="← Back"
+                                styleClass="btn-secondary"
+                                onAction="#goBack"/>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Button fx:id="editBtn"
+                                text="Edit"
+                                styleClass="btn-secondary"
+                                onAction="#startEdit"/>
+                        <Button fx:id="deleteBtn"
+                                text="Delete"
+                                styleClass="btn-secondary"
+                                onAction="#deletePlan"/>
+
+                        <Button fx:id="saveBtn"
+                                text="Save"
+                                styleClass="btn-primary"
+                                visible="false" managed="false"
+                                onAction="#saveEdit"/>
+
+                        <Button fx:id="cancelBtn"
+                                text="Cancel"
+                                styleClass="btn-secondary"
+                                visible="false" managed="false"
+                                onAction="#cancelEdit"/>
+                    </HBox>
+
+                    <!-- Header image -->
+                    <ImageView fx:id="planHeaderImage"
+                               fitWidth="740"
+                               fitHeight="220"
+                               preserveRatio="false"
+                               smooth="true" />
+
+                    <!-- Title -->
+                    <TextField fx:id="titleField"
+                               editable="false"
+                               style="-fx-font-size:22px; -fx-font-weight:bold; -fx-background-color: transparent; -fx-border-color: transparent;"/>
+
+                    <!-- Progress + Analytics button -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label fx:id="progressTitleLabel" text="Progress:" style="-fx-font-weight:bold;"/>
+                        <Label fx:id="progressLabel" text="0/0"/>
+                        <ProgressBar fx:id="progressBar" prefWidth="220"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="analyticsBtn"
+                                text="View Analytics"
+                                styleClass="btn-secondary"
+                                onAction="#openAnalytics"/>
+                    </HBox>
+
+                    <!-- Badges -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label fx:id="badgesTitleLabel" text="Badges:" style="-fx-font-weight:bold;"/>
+
+                        <HBox fx:id="badgeFirst" spacing="6"
+                              style="-fx-background-radius:999; -fx-padding:6 10; -fx-border-radius:999; -fx-border-color:#e6e8f0; -fx-background-color:#f6f7fb;">
+                            <Label fx:id="badgeFirstIcon" text="○"/>
+                            <Label fx:id="badgeFirstText" text="First completion"/>
+                        </HBox>
+
+                        <HBox fx:id="badgeHalf" spacing="6"
+                              style="-fx-background-radius:999; -fx-padding:6 10; -fx-border-radius:999; -fx-border-color:#e6e8f0; -fx-background-color:#f6f7fb;">
+                            <Label fx:id="badgeHalfIcon" text="○"/>
+                            <Label fx:id="badgeHalfText" text="Halfway"/>
+                        </HBox>
+
+                        <HBox fx:id="badgeFull" spacing="6"
+                              style="-fx-background-radius:999; -fx-padding:6 10; -fx-border-radius:999; -fx-border-color:#e6e8f0; -fx-background-color:#f6f7fb;">
+                            <Label fx:id="badgeFullIcon" text="○"/>
+                            <Label fx:id="badgeFullText" text="Plan completed"/>
+                        </HBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+                    </HBox>
+
+                    <!-- Description -->
+                    <Label fx:id="descriptionLabelTitle" text="Description" style="-fx-font-weight:bold;"/>
+                    <TextArea fx:id="descriptionArea"
+                              editable="false"
+                              wrapText="true"
+                              prefHeight="140"/>
+
+                    <!-- Goals -->
+                    <Label fx:id="goalsLabelTitle" text="Goals" style="-fx-font-weight:bold;"/>
+                    <TextArea fx:id="goalsArea"
+                              editable="false"
+                              wrapText="true"
+                              prefHeight="220"/>
+
+                    <!-- Exercises -->
+                    <HBox>
+                        <Label fx:id="exercisesLabelTitle" text="Exercises" style="-fx-font-weight:bold;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="addExerciseBtn"
+                                text="+ Add Exercise"
+                                styleClass="btn-primary"
+                                visible="false" managed="false"/>
+                    </HBox>
+
+                    <FlowPane fx:id="exercisesCardsContainer"
+                              hgap="15" vgap="15"
+                              prefWrapLength="740"/>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- Toast overlay -->
+        <AnchorPane fx:id="toastLayer"
+                    mouseTransparent="true"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0">
+
+            <Label fx:id="toastLabel"
+                   text=""
+                   visible="false"
+                   managed="false"
+                   wrapText="true"
+                   maxWidth="520.0"
+                   layoutY="14.0"
+                   AnchorPane.leftAnchor="130.0"
+                   AnchorPane.rightAnchor="130.0"
+                   style="-fx-background-color: rgba(20,20,20,0.88);
+                          -fx-text-fill: white;
+                          -fx-padding: 10 14;
+                          -fx-background-radius: 12;
+                          -fx-font-weight: bold;"/>
+        </AnchorPane>
+
+    </children>
+</AnchorPane>

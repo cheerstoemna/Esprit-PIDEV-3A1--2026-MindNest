@@ -1,0 +1,7 @@
+services\BookService.class
+services\GeminiPro.class
+services\GeminiPro$QuotaExceededException.class
+models\Book.class
+models\CompletionData.class
+controllers\BookRecommendationController$1.class
+controllers\BookRecommendationController.class

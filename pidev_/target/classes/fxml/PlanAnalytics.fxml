@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.PlanAnalyticsController"
+            prefWidth="780.0" prefHeight="530.0">
+
+    <children>
+
+        <ScrollPane fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0">
+
+            <content>
+                <VBox spacing="14" style="-fx-padding:20;">
+
+                    <!-- Header -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Button fx:id="backBtn"
+                                text="← Back"
+                                styleClass="btn-secondary"
+                                onAction="#goBack"/>
+
+                        <VBox spacing="2">
+                            <Label fx:id="titleLabel" text="Analytics" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+                            <Label fx:id="planNameLabel" text="" style="-fx-text-fill:#666;"/>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Label fx:id="completionLabel" text="Completion: 0%" style="-fx-font-weight:bold;"/>
+                    </HBox>
+
+                    <Separator/>
+
+                    <!-- Empty state -->
+                    <Label fx:id="emptyLabel"
+                           text="No exercises in this plan yet."
+                           visible="false" managed="false"
+                           style="-fx-text-fill:#666; -fx-padding: 10 0 0 0;"/>
+
+                    <!-- Chart + legend -->
+                    <HBox spacing="20" alignment="TOP_LEFT">
+
+                        <PieChart fx:id="pieChart" prefWidth="420" prefHeight="320"/>
+
+                        <VBox spacing="10" prefWidth="300">
+                            <Label text="Breakdown" style="-fx-font-weight:bold;"/>
+
+                            <GridPane hgap="10" vgap="8">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="120"/>
+                                    <ColumnConstraints minWidth="90"/>
+                                    <ColumnConstraints minWidth="70"/>
+                                </columnConstraints>
+
+                                <Label text="Not Started:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <Label fx:id="nsCountLabel" text="0" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                <Label fx:id="nsPctLabel" text="0%" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+
+                                <Label text="In Progress:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <Label fx:id="ipCountLabel" text="0" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                                <Label fx:id="ipPctLabel" text="0%" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+
+                                <Label text="Completed:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <Label fx:id="coCountLabel" text="0" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                                <Label fx:id="coPctLabel" text="0%" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+
+                                <Label text="Skipped:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                <Label fx:id="skCountLabel" text="0" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                <Label fx:id="skPctLabel" text="0%" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                            </GridPane>
+
+                            <Separator/>
+
+                        </VBox>
+
+                    </HBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+
+    </children>
+</AnchorPane>

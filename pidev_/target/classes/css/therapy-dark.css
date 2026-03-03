@@ -1,0 +1,521 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   therapy-dark.css — aggressive full dark, overrides everything
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Force every container dark ─────────────────────────────────────────── */
+.root, .root * {
+    -fx-base:             #1a1a2e;
+    -fx-background:       #1a1a2e;
+    -fx-control-inner-background: #162032;
+    -fx-accent:           #2e86c1;
+}
+
+.root {
+    -fx-background-color: #1a1a2e;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+BorderPane, VBox, HBox, AnchorPane,
+StackPane, FlowPane, GridPane, Pane, Region {
+    -fx-background-color: transparent;
+}
+
+/* ── Topbar ──────────────────────────────────────────────────────────────── */
+.topbar {
+    -fx-background-color: #0d1b2a !important;
+    -fx-padding: 22 30;
+}
+.title   { -fx-text-fill: #e2f0ff; -fx-font-size: 21px; -fx-font-weight: 700; }
+.subtitle{ -fx-text-fill: #7eb8d4; -fx-font-size: 14px; }
+
+/* ── Sidebar — THIS IS THE KEY FIX ──────────────────────────────────────── */
+.sidebar {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #1e3a56;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 30 22;
+    -fx-min-width: 160px;
+}
+
+/* ── Nav buttons ─────────────────────────────────────────────────────────── */
+.nav-btn {
+    -fx-background-color: #162032;
+    -fx-background-radius: 16;
+    -fx-text-fill: #7eb8d4;
+    -fx-padding: 15 20;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-max-width: Infinity;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent;
+}
+.nav-btn:hover  { -fx-background-color: #1e3a56; -fx-text-fill: #63b3ed; }
+.nav-btn.active { -fx-background-color: linear-gradient(to right, #1a5276, #1f618d); -fx-text-fill: white; }
+
+/* ── All labels ──────────────────────────────────────────────────────────── */
+Label { -fx-text-fill: #ccd9e8; }
+.label{ -fx-text-fill: #ccd9e8; }
+.hint { -fx-text-fill: #4a6a82; -fx-font-style: italic; -fx-font-size: 12px; }
+.label-bold     { -fx-text-fill: #7eb8d4; -fx-font-weight: 700; }
+.card-title     { -fx-text-fill: #d6eaf8; -fx-font-size: 18px; -fx-font-weight: 700; }
+.card-subtitle  { -fx-text-fill: #5d8aa8; -fx-font-size: 13px; }
+
+/* ── Content area & inner dashboard backgrounds ──────────────────────────── */
+.content-area, #contentHost {
+    -fx-background-color: #1a1a2e;
+}
+
+/* ── Cards ───────────────────────────────────────────────────────────────── */
+.card, .card-elevated {
+    -fx-background-color: #162032;
+    -fx-background-radius: 14;
+    -fx-border-color: #1e3a56;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+}
+.session-card {
+    -fx-background-color: #162032;
+    -fx-background-radius: 12;
+    -fx-border-color: #1e3a56;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+}
+.session-card:hover { -fx-border-color: #2e86c1; }
+
+/* ── Status badges ───────────────────────────────────────────────────────── */
+.status-badge     { -fx-background-radius: 20; -fx-padding: 4 12; -fx-font-size: 11px; -fx-font-weight: 700; }
+.status-scheduled { -fx-background-color: #1a3a56; -fx-text-fill: #63b3ed; }
+.status-completed { -fx-background-color: #1a3a2a; -fx-text-fill: #68d391; }
+.status-cancelled { -fx-background-color: #3a1a1a; -fx-text-fill: #fc8181; }
+
+/* ── ALL buttons ─────────────────────────────────────────────────────────── */
+Button, .button {
+    -fx-background-color: #1e3a56;
+    -fx-text-fill: #ccd9e8;
+    -fx-background-radius: 10;
+    -fx-border-color: #2a4f6e;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+}
+Button:hover, .button:hover { -fx-background-color: #264f72; -fx-text-fill: white; }
+
+.primary-btn {
+    -fx-background-color: linear-gradient(to right, #1a5276, #1f618d);
+    -fx-text-fill: white; -fx-font-weight: 700;
+    -fx-border-color: transparent; -fx-background-radius: 10;
+}
+.primary-btn:hover { -fx-background-color: linear-gradient(to right, #1f618d, #2471a3); }
+
+.secondary-btn {
+    -fx-background-color: #162032; -fx-text-fill: #7eb8d4;
+    -fx-border-color: #1e3a56; -fx-background-radius: 10; -fx-border-radius: 10;
+}
+.ghost-btn {
+    -fx-background-color: transparent; -fx-text-fill: #5d8aa8;
+    -fx-border-color: #1e3a56; -fx-border-radius: 10;
+}
+.ghost-btn:hover { -fx-background-color: #162032; -fx-text-fill: #63b3ed; }
+
+.card-action-btn         { -fx-background-color: #1a2d42; -fx-text-fill: #7eb8d4; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 11px; }
+.card-action-btn:hover   { -fx-background-color: #1e3a56; -fx-text-fill: #63b3ed; }
+.card-action-btn-primary { -fx-background-color: #1a4a6b; -fx-text-fill: #90cdf4; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 11px; }
+.card-action-btn-danger  { -fx-background-color: #3a1a1a; -fx-text-fill: #fc8181; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 11px; }
+.card-action-btn-danger:hover { -fx-background-color: #4a2020; }
+
+.theme-toggle-btn {
+    -fx-background-color: #1a3a56; -fx-text-fill: #90cdf4;
+    -fx-background-radius: 20; -fx-border-color: #2e5f82; -fx-border-radius: 20;
+    -fx-font-size: 12px; -fx-font-weight: 700; -fx-padding: 6 16;
+}
+.theme-toggle-btn:hover { -fx-background-color: #1e4a6e; }
+
+.filter-btn {
+    -fx-background-color: #162032; -fx-text-fill: #5d8aa8;
+    -fx-background-radius: 20; -fx-border-color: #1e3a56; -fx-border-radius: 20;
+    -fx-padding: 6 16; -fx-font-size: 12px;
+}
+.filter-btn:hover   { -fx-background-color: #1e3a56; -fx-text-fill: #63b3ed; }
+.filter-btn-active  {
+    -fx-background-color: linear-gradient(to right, #1a5276, #1f618d);
+    -fx-text-fill: white; -fx-background-radius: 20; -fx-border-color: transparent;
+    -fx-padding: 6 16; -fx-font-size: 12px; -fx-font-weight: 700;
+}
+
+/* ── Text inputs ─────────────────────────────────────────────────────────── */
+TextField, .text-field {
+    -fx-background-color: #162032; -fx-text-fill: #ccd9e8;
+    -fx-prompt-text-fill: #3a5a72; -fx-border-color: #1e3a56;
+    -fx-border-radius: 8; -fx-background-radius: 8; -fx-highlight-fill: #1f618d;
+}
+TextField:focused, .text-field:focused { -fx-border-color: #2e86c1; }
+
+TextArea, .text-area {
+    -fx-background-color: #162032; -fx-text-fill: #ccd9e8;
+    -fx-prompt-text-fill: #3a5a72; -fx-border-color: #1e3a56;
+    -fx-border-radius: 8; -fx-background-radius: 8;
+    -fx-control-inner-background: #162032;
+}
+.text-area .content { -fx-background-color: #162032; }
+TextArea:focused, .text-area:focused { -fx-border-color: #2e86c1; }
+
+/* ── ComboBox ────────────────────────────────────────────────────────────── */
+ComboBox, .combo-box {
+    -fx-background-color: #162032; -fx-border-color: #1e3a56;
+    -fx-border-radius: 8; -fx-background-radius: 8;
+}
+.combo-box .list-cell, ComboBox .list-cell {
+    -fx-text-fill: #ccd9e8; -fx-background-color: #162032;
+}
+.combo-box-popup .list-view  { -fx-background-color: #162032; -fx-border-color: #1e3a56; }
+.combo-box-popup .list-cell  { -fx-text-fill: #ccd9e8; -fx-background-color: #162032; }
+.combo-box-popup .list-cell:hover { -fx-background-color: #1e3a56; -fx-text-fill: #63b3ed; }
+.combo-box .arrow-button { -fx-background-color: #1e3a56; }
+.combo-box .arrow        { -fx-background-color: #7eb8d4; }
+
+/* ── DatePicker ──────────────────────────────────────────────────────────── */
+DatePicker, .date-picker {
+    -fx-background-color: #162032; -fx-border-color: #1e3a56;
+    -fx-border-radius: 8; -fx-background-radius: 8;
+}
+.date-picker .text-field { -fx-background-color: #162032; -fx-text-fill: #ccd9e8; -fx-border-color: transparent; }
+.date-picker-popup        { -fx-background-color: #162032; -fx-border-color: #1e3a56; }
+.date-picker-popup .month-year-pane  { -fx-background-color: #0d1b2a; }
+.date-picker-popup .calendar-grid    { -fx-background-color: #162032; }
+.date-picker-popup > * > .spinner    { -fx-background-color: #0d1b2a; }
+.date-picker-popup > * > .spinner Label { -fx-text-fill: #ccd9e8; }
+.date-picker-popup .day-name-cell    { -fx-text-fill: #5d8aa8; }
+.date-picker-popup .day-cell         { -fx-text-fill: #ccd9e8; -fx-background-color: transparent; }
+.date-picker-popup .day-cell:hover   { -fx-background-color: #1e3a56; }
+.date-picker-popup .selected         { -fx-background-color: #1f618d; -fx-text-fill: white; }
+.date-picker-popup .today            { -fx-border-color: #63b3ed; -fx-text-fill: #63b3ed; }
+.date-picker .arrow-button  { -fx-background-color: #1e3a56; }
+.date-picker .arrow-button .arrow { -fx-background-color: #7eb8d4; }
+
+/* ── ListView ────────────────────────────────────────────────────────────── */
+ListView, .therapist-list {
+    -fx-background-color: #162032; -fx-border-color: #1e3a56;
+    -fx-border-radius: 8; -fx-background-radius: 8;
+}
+.list-cell { -fx-background-color: transparent; -fx-text-fill: #ccd9e8; }
+.list-cell:odd      { -fx-background-color: #1a2a3e; }
+.list-cell:hover    { -fx-background-color: #1e3a56; -fx-text-fill: #63b3ed; }
+.list-cell:selected { -fx-background-color: #1f618d; -fx-text-fill: white; }
+
+/* ── TableView — THE OTHER KEY FIX ──────────────────────────────────────── */
+TableView, .table-view {
+    -fx-background-color: #162032;
+    -fx-border-color: #1e3a56;
+    -fx-table-cell-border-color: #1e3a56;
+}
+.table-view .column-header-background {
+    -fx-background-color: #0d1b2a;
+}
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #1e3a56;
+    -fx-size: 36px;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #7eb8d4;
+    -fx-font-weight: 700;
+    -fx-font-size: 12px;
+}
+.table-row-cell {
+    -fx-background-color: #162032;
+    -fx-border-color: #1e3a56;
+    -fx-text-fill: #ccd9e8;
+}
+.table-row-cell:odd  { -fx-background-color: #1a2a3e; }
+.table-row-cell:hover, .table-row-cell:focused {
+    -fx-background-color: #1e3a56;
+}
+.table-row-cell:selected {
+    -fx-background-color: #1f618d;
+}
+.table-cell {
+    -fx-text-fill: #ccd9e8;
+    -fx-border-color: transparent;
+}
+.table-row-cell:selected .table-cell { -fx-text-fill: white; }
+
+/* ── ScrollPane & bars ───────────────────────────────────────────────────── */
+ScrollPane, .session-scroll {
+    -fx-background-color: transparent;
+    -fx-background: #1a1a2e;
+    -fx-border-color: transparent;
+}
+.scroll-pane .viewport  { -fx-background-color: transparent; }
+.scroll-bar             { -fx-background-color: #162032; }
+.scroll-bar .thumb      { -fx-background-color: #1e3a56; -fx-background-radius: 4; }
+.scroll-bar .thumb:hover{ -fx-background-color: #2e86c1; }
+.scroll-bar .track      { -fx-background-color: #0d1b2a; }
+.scroll-bar .increment-button, .scroll-bar .decrement-button { -fx-background-color: #162032; }
+
+/* ── Dialogs ─────────────────────────────────────────────────────────────── */
+.dialog-pane { -fx-background-color: #162032; -fx-border-color: #1e3a56; }
+.dialog-pane .header-panel { -fx-background-color: #0d1b2a; }
+.dialog-pane .header-panel .label { -fx-text-fill: #d6eaf8; }
+.dialog-pane .content.label       { -fx-text-fill: #ccd9e8; }
+.dialog-pane .button-bar .button  {
+    -fx-background-color: #1e3a56; -fx-text-fill: #ccd9e8;
+    -fx-background-radius: 8; -fx-border-color: #2a4f6e; -fx-border-radius: 8;
+}
+
+/* ── Separator ───────────────────────────────────────────────────────────── */
+.separator .line { -fx-border-color: #1e3a56; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OVERRIDE INLINE STYLES — targets white panels & light backgrounds
+   set via style="" in FXML or controller code
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Force ALL VBox/HBox/Pane backgrounds dark (overrides inline -fx-background-color:white) */
+.root VBox, .root HBox, .root AnchorPane,
+.root StackPane, .root GridPane, .root BorderPane, .root Pane {
+    -fx-background-color: transparent;
+}
+
+/* White card panels in admin (Sessions Management, Feedback Management) */
+.root > * VBox[style*="background-color: white"],
+.root > * VBox[style*="background-color:#fff"],
+.root > * VBox[style*="background-color: #fff"] {
+    -fx-background-color: #162032 !important;
+}
+
+/* Stats bar at top of admin */
+.root > * HBox {
+    -fx-background-color: transparent;
+}
+
+/* Reminder banner — keep it visible but dark-themed */
+.reminder-banner, .warning-banner {
+    -fx-background-color: #1a2d10 !important;
+    -fx-border-color: #2d5a1b !important;
+}
+.reminder-banner Label, .warning-banner Label {
+    -fx-text-fill: #86efac !important;
+}
+
+/* Force specific panel backgrounds */
+.root * .card,
+.root * .panel,
+.root * .content-panel {
+    -fx-background-color: #162032;
+    -fx-border-color: #1e3a56;
+}
+
+/* Stat number labels in admin */
+.root * .stat-value,
+.root * .stat-number {
+    -fx-text-fill: #d6eaf8;
+}
+
+/* White text areas inside forms */
+.root * TextArea .content,
+.root * .text-area .content {
+    -fx-background-color: #162032;
+}
+
+/* Force scroll content background */
+.root * ScrollPane > .viewport > * {
+    -fx-background-color: #1a1a2e;
+}
+
+/* TableView empty rows */
+.root * .table-view .placeholder {
+    -fx-background-color: #162032;
+}
+.root * .table-view .placeholder .label {
+    -fx-text-fill: #4a6a82;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   THERAPY LAYOUT SHELL — dark mode overrides
+   ═══════════════════════════════════════════════════════════════════ */
+
+.app-root {
+    -fx-background-color: #1a1a2e;
+}
+
+.app-topbar {
+    -fx-background-color: #0d1b2a;
+    -fx-padding: 12 30;
+}
+
+.app-topbar-title {
+    -fx-text-fill: #e2f0ff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.app-topbar-search {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-background-radius: 20;
+    -fx-text-fill: #ccd9e8;
+    -fx-prompt-text-fill: rgba(180,200,220,0.5);
+    -fx-padding: 8 16;
+    -fx-border-color: transparent;
+}
+
+.topbar-user-label {
+    -fx-text-fill: #ccd9e8;
+    -fx-font-size: 14px;
+}
+
+.topbar-avatar {
+    -fx-background-color: #1e3a56;
+    -fx-background-radius: 20;
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-max-width: 40;
+    -fx-max-height: 40;
+}
+
+.topbar-logout-btn {
+    -fx-background-color: #1a5276;
+    -fx-text-fill: #7eb8d4;
+    -fx-background-radius: 8;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.app-sidebar {
+    -fx-background-color: #0d1b2a;
+    -fx-padding: 20 0;
+    -fx-min-width: 220;
+}
+
+.sidebar-section-label {
+    -fx-text-fill: #4a6a82;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 20;
+}
+
+.sidebar-divider {
+    -fx-background-color: #1e3a56;
+    -fx-padding: 10 0;
+}
+
+.app-content-host {
+    -fx-background-color: #1a1a2e;
+    -fx-padding: 25;
+}
+
+.sidebar-nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7eb8d4;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 20;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+}
+.sidebar-nav-btn:hover {
+    -fx-background-color: #1e3a56;
+    -fx-text-fill: #63b3ed;
+}
+.sidebar-nav-btn-active {
+    -fx-background-color: linear-gradient(to right, #1a5276, #1f618d);
+    -fx-text-fill: white;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   THERAPY LAYOUT SHELL — dark mode overrides
+   ═══════════════════════════════════════════════════════════════════ */
+
+.app-root {
+    -fx-background-color: #111827 !important;
+}
+
+.app-content-host {
+    -fx-background-color: #111827 !important;
+    -fx-padding: 24;
+}
+
+.app-topbar {
+    -fx-background-color: #0f1923 !important;
+    -fx-padding: 13 28;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0.3, 0, 3);
+}
+
+.app-topbar-title {
+    -fx-text-fill: #e2f0ff !important;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.app-topbar-search {
+    -fx-background-color: rgba(255,255,255,0.07) !important;
+    -fx-text-fill: #c8d8e8 !important;
+    -fx-prompt-text-fill: rgba(150,180,200,0.4) !important;
+    -fx-border-color: rgba(255,255,255,0.1) !important;
+}
+
+.topbar-user-label {
+    -fx-text-fill: #8bafc8 !important;
+}
+
+.topbar-avatar {
+    -fx-background-color: #1e3a56 !important;
+}
+
+.theme-toggle-btn {
+    -fx-background-color: #1e3a56 !important;
+    -fx-text-fill: #7eb8d4 !important;
+    -fx-border-color: #2a4f72 !important;
+}
+
+.theme-toggle-btn:hover {
+    -fx-background-color: #254e6e !important;
+}
+
+.topbar-logout-btn {
+    -fx-background-color: #1e3a56 !important;
+    -fx-text-fill: #7eb8d4 !important;
+    -fx-border-color: #2a4f72 !important;
+}
+
+.topbar-logout-btn:hover {
+    -fx-background-color: #254e6e !important;
+}
+
+.app-sidebar {
+    -fx-background-color: #0d1b2a !important;
+    -fx-border-color: #1e3a56 !important;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 18 0;
+    -fx-min-width: 220;
+}
+
+.sidebar-section-label {
+    -fx-text-fill: #3a5a76 !important;
+}
+
+.sidebar-divider {
+    -fx-background-color: #1a3048 !important;
+}
+
+.sidebar-nav-btn {
+    -fx-background-color: transparent !important;
+    -fx-text-fill: #6a9ab8 !important;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-background-radius: 10;
+}
+
+.sidebar-nav-btn:hover {
+    -fx-background-color: #152840 !important;
+    -fx-text-fill: #8fc5e0 !important;
+}
+
+.sidebar-nav-btn-active {
+    -fx-background-color: linear-gradient(to right, #1a4a6e, #1e3f5a) !important;
+    -fx-text-fill: #a8d8f0 !important;
+    -fx-font-weight: 700;
+}
